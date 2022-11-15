@@ -1,0 +1,102 @@
+.container{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.carousel{
+  width: 100%;
+  display: flex;
+  overflow: hidden;
+  padding: 20px 0;
+}
+
+.carousel ul{
+  width: 100%;
+  display: flex;
+  gap: 20px;
+  padding-right: 17px;
+  box-sizing: content-box;
+}
+
+.carousel li{
+  width: fit-content !important;
+  list-style: none;
+}
+
+.carousel button{
+  display: none;
+}
+
+.card{
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 150px;
+  border-radius: 15px;
+  background: black;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+  padding: 20px 15px;
+  margin-bottom: 20px;
+}
+
+.cardheader{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cardtitle{
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.cardtitle h3{
+  font-size: .9rem;
+  color: rgba(238, 238, 238, 0.7);
+}
+
+.icon{
+  color: #00e99b;
+  font-size: 1.7rem;
+}
+
+.isactive{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.isactive p{
+  font-size: .9rem;
+  color: rgba(255, 255, 255, 0.4);
+  font-weight: 500;
+}
+
+.circle{
+  font-size: 1rem;
+  color: #e90000;
+  padding-top: 4px;
+}
+
+.cardbody{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cardbody h1{
+  font-size: 2rem;
+  color: whitesmoke;
+  text-shadow: 0 0 5px rgba(0, 233, 155, 0.2);
+}
+
+.chart{
+  color: #e90000;
+  font-size: 2rem;
+}

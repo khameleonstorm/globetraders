@@ -1,0 +1,44 @@
+.container{
+  width: 100%;
+  padding: 20px 0;
+}
+
+.logos{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0 50px;
+}
+
+.logos img{
+  width: 12%;
+}
+
+.tvcontainer{
+  width: 100%;
+  margin: 20px 0;
+}
+
+.tvcontainer div{
+  display: none;
+  position: relative;
+}
+
+.tvcontainer div:first-child{
+  display: block;
+}
+
+
+@media screen and (max-width: 700px){
+.logos{
+  padding: 0 20px;
+}
+
+.logos img{
+  width: 30%;
+  margin-bottom: 20px;
+}
+
+}
