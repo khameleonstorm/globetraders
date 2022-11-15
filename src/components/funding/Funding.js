@@ -1,7 +1,5 @@
 import { useState, useRef } from "react";
 import { wallet } from "../../utils/fund";
-import { VscWorkspaceTrusted } from "react-icons/vsc";
-import { VscCommentDiscussion } from "react-icons/vsc";
 import { VscCopy } from "react-icons/vsc";
 import styles from "./Funding.module.css";
 import InputLabel from '@mui/material/InputLabel';
@@ -13,8 +11,6 @@ import Select from '@mui/material/Select';
 export default function Funding() {
   const [coin, setCoin] = useState(0);
   const [copy, setCopy] = useState(false);
-  const [trust, setTrust] = useState(false);
-  const [phone, setPhone] = useState(false);
   const [copySuccess, setCopySuccess] = useState(false);
   const textAreaRef = useRef(null);
 
@@ -26,18 +22,6 @@ export default function Funding() {
   const handleClick =  (e) => {
     if (e === "copy") {
       setCopy(true)
-      setTrust(false)
-      setPhone(false)
-    }
-    if (e === "trust") {
-      setTrust(true)
-      setCopy(false)
-      setPhone(false)
-    }
-    if (e === "phone") {
-      setPhone(true)
-      setTrust(false)
-      setCopy(false)
     }
   }
 
@@ -97,18 +81,6 @@ export default function Funding() {
             </a>
             {!copySuccess && <p>Copy</p>}
             {copySuccess && <p>Copied!</p>}
-          </div>
-          <div className={styles.icon}>
-            <a href={wallet[coin].link}>
-              <VscWorkspaceTrusted size="3.5em" onClick={() => handleClick("trust")} style={trust && {color: "#00e99b"}}/>
-            </a>
-            <p>Trust-Wallet</p>
-          </div>
-          <div className={styles.icon}>
-            <a href="#icon">
-              <VscCommentDiscussion size="3.5em" onClick={() => handleClick("phone")} style={phone && {color: "#00e99b"}}/>
-            </a>
-            <p>Contact-Us</p>
           </div>
         </div>
 

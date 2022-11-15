@@ -1,8 +1,10 @@
 import styles from './Profile.module.css'
 import useAuth from '../../hooks/useAuth'
+import useCollection from '../../hooks/useCollection'
 
 export default function Profile() {
   const { user,  authIsReady} = useAuth()
+  const { document } = useCollection('profile', false, true)
 
 
   return ((authIsReady && user) &&
@@ -20,7 +22,7 @@ export default function Profile() {
           <p>{user.email}</p>
           <div className={styles.equity}>
             <p>Total Assets</p>
-            <h1>$5059680</h1>
+            <h1>${document[0]?.bal.balance}</h1>
           </div>
         </div>
         <div className={styles.referral}>
@@ -31,11 +33,11 @@ export default function Profile() {
           <div className={styles.referred}>
             <div className={styles.referCount}>
               <p>Referred</p>
-              <h1>123</h1>
+              <h1>0</h1>
             </div>
             <div className={styles.referEarn}>
               <p>Bonus</p>
-              <h1>$123</h1>
+              <h1>$0</h1>
             </div>
           </div>
         </div>
