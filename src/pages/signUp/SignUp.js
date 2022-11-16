@@ -27,6 +27,7 @@ export default function SignUp() {
     country: countryName,
     image: {},
     referral: '',
+    gender: '',
     emailChecked: false,
     policyChecked: false,
     showPassword: false,
@@ -38,6 +39,7 @@ export default function SignUp() {
     email: null,
     country: null,
     image: null,
+    gender: null,
     referral: null,
     emailChecked: null,
     policyChecked: null,
@@ -83,6 +85,7 @@ export default function SignUp() {
       image: values.image,
       referral: values.referral,
       password: password,
+      gender: values.gender
     };
 
     // validating form
@@ -112,7 +115,12 @@ export default function SignUp() {
     }
 
     if(values.country === "") {
-      setFormError({...formError, country: "Country is invalid"});
+      setFormError({...formError, country: "Select Your Country"});
+      return
+    }
+
+    if(values.gender === "") {
+      setFormError({...formError, gender: "Select Your Gender"});
       return
     }
 
@@ -212,6 +220,21 @@ export default function SignUp() {
           {countries.map((country, index) => (
             <MenuItem key={index} value={country.name}>{country.name}</MenuItem>
             ))}
+        </Select>
+        </FormControl>
+
+        <FormControl fullWidth>
+        <InputLabel id="gender">Gender</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="select gender"
+          value={values.gender}
+          label="Gender"
+          {...(formError.gender && {error: true})}
+          onChange={handleChange('gender')}
+        >
+          <MenuItem value="Male">Male</MenuItem>
+          <MenuItem value="Female">Female</MenuItem>
         </Select>
         </FormControl>
 

@@ -43,7 +43,7 @@ export default function InvestmentCard({ title, subtitle, plans, showHeader }) {
         // parse amount to number
         const amountNumber = Number(amount);
         const { bal } = filteredDoc[0];
-        if(bal.balance >= amountNumber){
+        if(bal.balance >= amountNumber && amountNumber >= 100){
           const newBal = bal.balance - amountNumber;
           const newInvest = bal.investment + amountNumber;
           const newBalances = {

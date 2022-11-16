@@ -5,6 +5,7 @@ import { createUserWithEmailAndPassword, updateProfile, sendEmailVerification} f
 import { doc, setDoc } from "firebase/firestore"
 import useAuth from "./useAuth"
 import { useNavigate } from "react-router-dom"
+import dateFormat from "dateformat";
 
 
 export const useSignup = () => {
@@ -15,7 +16,7 @@ export const useSignup = () => {
     const navigate = useNavigate()
 
     // 
-    const signUp = async({email, password, username, image, referral, country}) => {
+    const signUp = async({email, password, username, image, referral, country, fullName, gender}) => {
 
         setError(null)
         setIsPending(true)
@@ -75,9 +76,12 @@ export const useSignup = () => {
                   uid: res.user.uid,
                   photoURL: imageUrl,
                   email: res.user.email,
+                  fullName,
                   country,
                   referral,
-                  CreatedAt: new Date().toISOString(),
+                  gender,
+                  lastLogin: dateFormat(new Date(), "dddd, mmmm dS, yyyy, h:MM:ss TT"),
+                  CreatedAt: dateFormat(new Date(), "dddd, mmmm dS, yyyy, h:MM:ss TT"),
                   bal: {
                     balance: 0,
                     investment: 0,

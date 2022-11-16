@@ -141,26 +141,20 @@
   display: none;
 }
 
-.chatLink{
-  visibility: visible;
-}
-
 .links{
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
-  padding-bottom: 20px;
+  justify-content: space-between;
 }
 
 .links div{
   width: 60px;
-  height: 60px;
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  border-radius: 50%;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   gap: 0;
@@ -168,7 +162,7 @@
 }
 
 .links div p{
-  display: none;
+  font-size: .5rem;
 }
 
 .menuIcon{
@@ -183,103 +177,17 @@
   display: none;
 }
 
-.active{
-  background: white;
-  color: white;
-  cursor: pointer;
-  position: relative;
-  text-shadow: 1px 1px 3px #0000006c;
-  filter: drop-shadow(0 0 -3px #ffffff27);
+.active::before, .active::after{
+  display: none;
 }
 
 .active .menuIcon{
-  width: 40px;
-  height: 40px;
-  background: white;
-  color: black;
-  border-radius: 50%;
-  margin: 8px 5px;
-  padding: 10px;
-  filter: drop-shadow(2px 2px 5px #00000030);
-  z-index: 3000;
-  animation-name: roll;
-  animation-duration: 1.5s;
-  animation-timing-function: linear;
+  color: rgb(69, 20, 244);
   transition: all ease-in-out .2s;
-}
-
-@keyframes roll{
-  0%{
-    transform: rotateZ(10deg) translate(25px, -30px);
-  }
-
-  20%{
-    transform: rotateZ(-20deg) translate(7px, 8px);
-  }
-
-  30%{
-    transform: rotateZ(-30deg) translate(0, 8px);
-  }
-
-  45%{
-    transform: rotateZ(-40deg) translate(-7px, 5px);
-  }
-
-  65%{
-    transform: rotateZ(-50deg) translate(-10px, -5px);
-  }
-
-  80%{
-    transform: rotateZ(-30deg) translate(-5px, 5px);
-  }
-
-  90%{
-    transform: rotateZ(-10deg) translate(2px, 7px);
-  }
-
-  100%{
-    transform: rotateZ(0deg) translate(0, 0);
-  }
-}
-
-.active::before{
-  top: 8.8px;
-  left: -34.5px;
-  width: 38px;
-  height: 40px;
-  border-top-right-radius: 100%;
-  border-bottom-right-radius: 0;
-  box-shadow: 10px -11px 0 0 white;
-}
-
-.active::after{
-  top: 8.8px;
-  right: -34.5px;
-  width: 37px;
-  height: 40px;
-  border-top-left-radius: 100%;
-  border-top-right-radius: 0;
-  box-shadow: -10px -11px 0 0 white;
 }
 
 }
 
 @media screen and (max-width: 450px){
-  
-.active::before{
-  top: 12px;
-  left: -35px;
-  width: 38px;
-  height: 40px;
-  box-shadow: 10px -11px 0 0 white;
-}
-
-.active::after{
-  top: 12px;
-  right: -35px;
-  width: 37px;
-  height: 40px;
-  box-shadow: -10px -11px 0 0 white;
-}
 
 }

@@ -1,11 +1,20 @@
 import styles from './Profile.module.css'
 import useAuth from '../../hooks/useAuth'
-import useCollection from '../../hooks/useCollection'
+import { useEffect, useState } from 'react'
 
-export default function Profile() {
+export default function Profile({ document }) {
   const { user,  authIsReady} = useAuth()
-  const { document } = useCollection('profile', false, true)
+  const [profile, setProfile] = useState(null)
 
+  useEffect(() => {
+    if(document){
+      // filter and set profile
+      let filteredDoc = document.filter((doc) => doc.email === user.email)
+      setProfile(filteredDoc[0])
+    }
+  }, [document, user])
+  
+  console.log(profile)
 
   return ((authIsReady && user) &&
     <div className={styles.container}>
@@ -22,7 +31,7 @@ export default function Profile() {
           <p>{user.email}</p>
           <div className={styles.equity}>
             <p>Total Assets</p>
-            <h1>${document[0]?.bal.balance}</h1>
+            <h1>${profile?.bal.balance}</h1>
           </div>
         </div>
         <div className={styles.referral}>
@@ -39,6 +48,13 @@ export default function Profile() {
               <p>Bonus</p>
               <h1>$0</h1>
             </div>
+          </div>
+        </div>
+        <div className={styles.moreDetails}>
+          <h1>Profile Imformation</h1>
+          <div className={styles.details}>
+            <p>Full Name: <span>{profile?.fullName}</span></p>
+            <p>Email: <span>{profile?.email}</span></p>
           </div>
         </div>
       </div>

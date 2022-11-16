@@ -104,7 +104,7 @@ const handleSubmit = async(e) => {
           value={savings} 
           onChange={(e) => setSavings(e.target.value)}/>
           <button 
-          className={styles.btn} 
+          className={styles.btn}
           type='submit'>
             {pending? "Updating...": message? `${message}`: "Update"}
           </button>

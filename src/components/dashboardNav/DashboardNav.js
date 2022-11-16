@@ -36,15 +36,6 @@ export default function DashboardNav() {
 
 
 
-  const handleContact = () => {
-    const input = prompt("Are you sure you want to contact me?", "Type 'yes' for confirmation")
-    if (input === "yes") {
-      window.location.assign("https://wa.me/17025189205")
-    }
-  }
-
-
-
   const handleWithdraw = () => {
     setShowModal(true)
   }
@@ -149,7 +140,6 @@ export default function DashboardNav() {
             <Link to="/home">Home</Link>
             <Link to="/about">About</Link>
             <Link to="/stocks">Plans</Link>
-            <Link to="#" onClick={handleContact}>Contact</Link>
             <Link to="#" onClick={handleWithdraw}>Withdraw</Link>
             <Button variant="outlined" color="error" size="small" style={{fontSize: "0.7rem"}} onClick={logout}> Logout <HiOutlineLogout size="1.3em"
             style={{marginLeft: "1rem"}}

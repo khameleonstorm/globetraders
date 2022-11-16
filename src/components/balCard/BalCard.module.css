@@ -1,45 +1,29 @@
 .container{
   width: 100%;
+  min-height: 300px;
   display: flex;
   flex-direction: column;
   position: relative;
 }
 
-.carousel{
+.balCard{
   width: 100%;
   display: flex;
-  overflow: hidden;
-  padding: 20px 0;
-}
-
-.carousel ul{
-  width: 100%;
-  display: flex;
-  gap: 20px;
-  padding-right: 17px;
-  box-sizing: content-box;
-}
-
-.carousel li{
-  width: fit-content !important;
-  list-style: none;
-}
-
-.carousel button{
-  display: none;
+  flex-wrap: wrap;
+  gap: 15px;
 }
 
 .card{
-  width: 250px;
+  width: 300px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 150px;
-  border-radius: 15px;
-  background: black;
-  box-shadow: 0 0 5px rgba(0,0,0,0.2);
-  padding: 20px 15px;
+  border-radius: 20px;
+  background: rgb(249, 249, 249);
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  padding: 15px;
   margin-bottom: 20px;
+  gap: 15px;
 }
 
 .cardheader{
@@ -51,36 +35,29 @@
 
 .cardtitle{
   display: flex;
+  flex-direction: row-reverse;
   align-items: center;
   gap: 7px;
 }
 
 .cardtitle h3{
   font-size: .9rem;
-  color: rgba(238, 238, 238, 0.7);
-}
-
-.icon{
-  color: #00e99b;
-  font-size: 1.7rem;
+  color: rgba(0, 0, 0, 0.7);
 }
 
 .isactive{
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
-  gap: 10px;
-}
-
-.isactive p{
-  font-size: .9rem;
-  color: rgba(255, 255, 255, 0.4);
-  font-weight: 500;
+  justify-content: center;
+  background: linear-gradient(310deg, #7b4604 0%, #282454 100%);
+  border-radius: 10px;
 }
 
 .circle{
-  font-size: 1rem;
-  color: #e90000;
-  padding-top: 4px;
+  font-size: 1.5rem;
+  color: white;
 }
 
 .cardbody{
@@ -92,11 +69,28 @@
 
 .cardbody h1{
   font-size: 2rem;
-  color: whitesmoke;
+  color: rgb(0, 0, 0);
   text-shadow: 0 0 5px rgba(0, 233, 155, 0.2);
 }
 
 .chart{
-  color: #e90000;
   font-size: 2rem;
+}
+
+@media screen and (max-width: 600px){
+.container{
+  min-height: 500px;
+}
+.balCard{
+  padding: 0 10px;
+  gap: 10px;
+}
+
+.card{
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 0px;
+  gap: 0px;
+}
+
 }

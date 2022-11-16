@@ -12,7 +12,7 @@ import useAuth from '../../hooks/useAuth'
 import {BsPersonFill, BsPerson} from "react-icons/bs";
 import { HiHome, HiOutlineHome, HiOutlineLogout} from "react-icons/hi";
 import { MdOutlineAccountBalance, MdAccountBalance } from 'react-icons/md'
-import { IoStatsChartOutline, IoStatsChart } from 'react-icons/io5'
+import { IoStatsChartOutline, IoStatsChart, IoBarChartOutline, IoBarChartSharp } from 'react-icons/io5'
 
 export default function SideNav() {
   const { authIsReady, user } = useAuth()
@@ -68,6 +68,17 @@ export default function SideNav() {
           <div>
             <BsPersonFill onClick={() => navigate("/dashboard/profile")} className={styles.menuIcon}/> 
             <p onClick={() => navigate("/dashboard/profile")}>Profile</p>
+          </div>
+          }
+
+          {(page === "chart") ?
+          <div className={styles.active}>
+            <IoBarChartOutline onClick={() => navigate("/dashboard/chart")} className={styles.menuIcon}/> 
+            <p onClick={() => navigate("/dashboard/chart")}>TradingView</p>
+          </div> :
+          <div>
+            <IoBarChartSharp onClick={() => navigate("/dashboard/chart")} className={styles.menuIcon}/> 
+            <p onClick={() => navigate("/dashboard/chart")}>TradingView</p>
           </div>
           }
 

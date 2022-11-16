@@ -4,13 +4,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: white;
+  background: transparent;
 }
 
 
 .wrapper{
   width: 300px;
-  background: rgb(249, 249, 249);
+  background: white;
   border-radius: 20px;
   text-align: center;
   padding: 20px;

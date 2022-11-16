@@ -17,6 +17,7 @@ import { MoonLoader } from 'react-spinners';
 // importing plans
 import { investment } from '../../utils/investText';
 import Profile from '../../components/profile/Profile';
+import ReferralText from '../../components/referralText/ReferralText';
 
 
 
@@ -33,7 +34,7 @@ export default function Dashboard() {
         navigate('/login')
       }
     }
-    setTimeout(() => setSpinner(false), 3000)
+    setTimeout(() => setSpinner(false), 1000)
   }, [authIsReady, user, navigate])
 
 
@@ -58,7 +59,8 @@ export default function Dashboard() {
       </div>
       {(page === undefined || page === 'home') &&
       <div className={styles.main}>
-        <BalCard document={document}/>
+        <BalCard />
+        <ReferralText />
         <Charts />
       </div>
       }
@@ -80,7 +82,7 @@ export default function Dashboard() {
 
       {page === 'profile' &&
       <div className={styles.main}>
-        <Profile />
+        <Profile document={document}/>
       </div>
       }
       

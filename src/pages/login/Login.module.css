@@ -71,7 +71,8 @@
     background: none;
   }
   .form{
-    width: 90%;
+    width: 100%;
     background: none;
+    box-shadow: none;
   }
 }
