@@ -8,23 +8,31 @@ import BalCard from '../../components/balCard/BalCard';
 import Charts from '../../components/charts/Charts';
 import Funding from '../../components/funding/Funding';
 import InvestmentCard from '../../components/investmentCard/InvestmentCard';
+import ReferralText from '../../components/referralText/ReferralText';
+import BuiltWith from '../../components/builtWith/BuiltWith';
+import Profile from '../../components/profile/Profile';
+import MiningOverview from '../../components/miningOverview/MiningOverview';
+import Clients from '../../components/clients/Clients';
+import CryptoChart from '../../components/cryptoChart/CryptoChart';
+import MarketPower from '../../components/marketPower/MarketPower';
+import Indices from '../../components/indices/Indices';
+import CrossRates from '../../components/crossRates/CrossRates';
+import IndicesFuture from '../../components/indicesFuture/IndicesFuture'
+import HeatMap from '../../components/heatMap/HeatMap';
 
 // importing router functions
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { MoonLoader } from 'react-spinners';
 
 // importing plans
 import { investment } from '../../utils/investText';
-import Profile from '../../components/profile/Profile';
-import ReferralText from '../../components/referralText/ReferralText';
 
 
 
 export default function Dashboard() {
-  const { document } = useCollection('profile', false, true);
+  const { document, isPending } = useCollection('profile', false, true);
   const { authIsReady, user } = useAuth()
-  const [spinner, setSpinner] = useState(true)
   const { page } = useParams();
   const navigate = useNavigate()
 
@@ -34,12 +42,11 @@ export default function Dashboard() {
         navigate('/login')
       }
     }
-    setTimeout(() => setSpinner(false), 1000)
   }, [authIsReady, user, navigate])
 
 
 
-  if(spinner){
+  if(isPending){
     return (
       <div className={styles.spinnerContainer}>
         <div className={styles.spinner}>
@@ -61,7 +68,10 @@ export default function Dashboard() {
       <div className={styles.main}>
         <BalCard />
         <ReferralText />
-        <Charts />
+        <BuiltWith />
+        <MiningOverview />
+        <Clients />
+        <CryptoChart />
       </div>
       }
 
@@ -83,6 +93,20 @@ export default function Dashboard() {
       {page === 'profile' &&
       <div className={styles.main}>
         <Profile document={document}/>
+      </div>
+      }
+
+      {page === 'chart' &&
+      <div className={styles.main}>
+        <Clients />
+        <Charts />
+        <MarketPower />
+        <Indices />
+        <CrossRates />
+        <IndicesFuture />
+        <Clients />
+        <CryptoChart />
+        <HeatMap />
       </div>
       }
       

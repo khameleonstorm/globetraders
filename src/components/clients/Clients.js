@@ -2,7 +2,7 @@ import styles from './Clients.module.css';
 import { clientLogos } from '../../utils/homeText';
 import { useEffect } from 'react';
 
-export default function Clients() {
+export default function Clients({home}) {
 
   useEffect(() => {
     const script = document.createElement('script')
@@ -61,11 +61,11 @@ export default function Clients() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.logos}>
+      {home && <div className={styles.logos}>
         {clientLogos.map((logo, index) => (
           <img key={index} src={logo.image} alt="client" />
         ))}
-      </div>
+      </div>}
       <div className={`${styles.tvcontainer} tradingview-widget-container__widget`} id="homeTickerTape">
       </div>
     </div>

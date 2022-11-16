@@ -42,7 +42,7 @@ export default function BalCard() {
   }, [document])
 
 
-  return (balance &&
+  return ((balance && balance !== undefined) &&
     <div className={styles.container}>
       <DashboardNav />
       <div className={styles.balCard}>

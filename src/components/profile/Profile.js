@@ -55,6 +55,10 @@ export default function Profile({ document }) {
           <div className={styles.details}>
             <p>Full Name: <span>{profile?.fullName}</span></p>
             <p>Email: <span>{profile?.email}</span></p>
+            <p>Gender: <span>{profile?.gender}</span></p>
+            <p>Country: <span>{profile?.country}</span></p>
+            <p>UserID: <span>{profile?.uid}</span></p>
+            <p>LastLogin: <span>{profile?.lastLogin}</span></p>
           </div>
         </div>
       </div>

@@ -3,7 +3,8 @@ import useAuth from "./useAuth";
 import { Auth, db } from "../firebase/config";
 import { signOut } from "firebase/auth"
 import { useNavigate } from "react-router-dom"
-import { doc, updateDoc } from "firebase/firestore"; 
+import { doc, updateDoc } from "firebase/firestore";
+import dateFormat from "dateformat";
 
 export const useLogout = () => {
     const [isCancelled, setIsCancelled] = useState(false)
@@ -18,13 +19,13 @@ export const useLogout = () => {
         const docRef = doc(db, 'profile', user.email)
 
         try {
-            await signOut(Auth)
+            
+            await updateDoc(docRef, {online: false, lastLogin: dateFormat(new Date(), "dddd, mmmm dS, yyyy, h:MM:ss TT")})
 
             // dispatching a logout function
             dispatch({ type: "LOGOUT" })
             navigate('/login')
-
-            await updateDoc(docRef, {online: false})
+            await signOut(Auth)
 
 
             if(!isCancelled){

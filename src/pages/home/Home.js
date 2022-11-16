@@ -19,22 +19,15 @@ import Copyright from '../../components/copyright/Copyright';
 // import texts from utils 
 import { homeSec1Text, homeSec2Text, homeSec3Text, homeSec4Text, homeSec5Text, homeSec6Text, services, heroText, copyright, team } from '../../utils/homeText';
 import ContactForm from '../../components/contactForm/ContactForm';
-import { useEffect, useState } from 'react';
 import { MoonLoader } from 'react-spinners';
 
 
 
 export default function Home() {
   const { authIsReady } = useAuth();
-  const [spinner, setSpinner] = useState(true)
-
-  
-  useEffect(() => {
-    setTimeout(() => setSpinner(false), 3000)
-  }, []);
 
 
-  if(spinner){
+  if(!authIsReady){
     return (
       <div className={styles.spinnerContainer}>
         <div className={styles.spinner}>
@@ -45,12 +38,12 @@ export default function Home() {
   }
 
 
-  if(!spinner && authIsReady){
+  if(authIsReady){
     return (authIsReady &&
       <div className={styles.container}>
         <Nav />
         <Hero title={heroText.title} subtitle={heroText.subtitle} image={heroText.image} link={heroText.link}/>
-        <Clients />
+        <Clients home={true}/>
         <HomeSec1 title={homeSec1Text.title} subtitle={homeSec1Text.subtitle} card={homeSec1Text.card} />
         <HomeSec2 title={homeSec2Text.title} subtitle={homeSec2Text.subtitle} image={homeSec2Text.image} accordions={homeSec2Text.accordions} />
         <HomeSec3 title={homeSec3Text.title} subtitle={homeSec3Text.subtitle} image={homeSec3Text.image} bars={homeSec3Text.bars} />
