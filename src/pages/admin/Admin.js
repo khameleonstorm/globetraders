@@ -6,6 +6,7 @@ import useCollection from '../../hooks/useCollection';
 import { TextField } from '@mui/material';
 import { db } from '../../firebase/config';
 import { updateDoc, doc } from 'firebase/firestore';
+import DashboardNav from '../../components/dashboardNav/DashboardNav';
 
 export default function Admin() {
   const { document, error, isPending } = useCollection('profile', true, false);
@@ -66,6 +67,7 @@ const handleSubmit = async(e) => {
 
   return ((authIsReady && user) && 
     <div className={styles.container}>
+      <DashboardNav />
       <Users document={document} error={error} isPending={isPending} filter={filter}/>
 
       {singleDoc &&

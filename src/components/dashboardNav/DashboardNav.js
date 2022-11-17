@@ -10,6 +10,7 @@ import useCollection from '../../hooks/useCollection';
 import { TextField } from '@mui/material';
 import { updateDoc, doc } from 'firebase/firestore';
 import { db } from '../../firebase/config';
+import { MoonLoader } from 'react-spinners';
 
 export default function DashboardNav() {
   const { authIsReady, user } = useAuth()
@@ -20,7 +21,7 @@ export default function DashboardNav() {
   const [address, setAddress] = useState(null);
   const { document } = useCollection('profile', false, true);
   const [modalError, setModalError] = useState(null);
-  const [modalSuccess, setModalSuccess] = useState(null);
+  const [modalSuccess, setModalSuccess] = useState(false);
   const ref = doc(db, "profile", user.email);
 
 
@@ -48,13 +49,12 @@ export default function DashboardNav() {
         // parse amount to number
         const amountNumber = Number(amount);
         const { bal } = document[0];
-        if(bal.profit >= amountNumber){
-          const newProfit = bal.profit - amountNumber;
-          const newWithdraw = bal.withdrawal + amountNumber;
+        if(bal.withdrawal >= amountNumber){
+          const newWithdraw = bal.withdrawal - amountNumber;
           const newBalances = {
             balance: bal.balance,
             investment: bal.investment,
-            profit: newProfit,
+            profit: bal.profit,
             savings: bal.savings,
             withdrawal: newWithdraw
           }
@@ -62,13 +62,13 @@ export default function DashboardNav() {
           await updateDoc(ref, {
             "bal": newBalances
           });
-          setModalSuccess('Withdrawal successful')
+          setModalSuccess(true)
           setTimeout(() => {
+            setModalSuccess(false)
             setShowModal(false)
             setAmount(null)
             setAddress(null)
             setModalError(null)
-            setModalSuccess(null)
           }, 3000)
         } else {
           setModalError('Insufficient funds')
@@ -88,12 +88,20 @@ export default function DashboardNav() {
 
   return ((authIsReady && user) &&
   <>
+      {modalSuccess && 
+      <div className={styles.modalSuccess}>
+        <div className={styles.modalSuccessContainer}>
+          <MoonLoader color="#ffd016"/>
+          <h1>Processing Your Withdrawal</h1>
+          <p>Contact Us For More Info!</p>
+        </div>
+      </div>
+      }
       {showModal &&
       <div className={styles.modal}>
         <div className={styles.modalcontent}>
           <form onSubmit={handleSubmit}>
-            {!modalSuccess && <h1>Enter Amount & Address</h1>}
-            {modalSuccess && <h1 style={{color: "#00ff00"}}>{modalSuccess}</h1>}
+            <h1>Enter Amount & Address</h1>
             <TextField 
               id="Amount" 
               label="Amount" 
