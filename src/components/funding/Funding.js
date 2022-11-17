@@ -61,7 +61,7 @@ export default function Funding() {
         </FormControl>
 
         <div className={styles.qr}>
-            <img src={wallet[coin].image} alt="QR code"/>
+            <img src={wallet[coin].image} alt="QR code" loading="lazy"/>
             <input
             type="text"
             ref={textAreaRef}

@@ -23,16 +23,16 @@ export default function BalCard() {
       const doc = {...document[0]}
       const { bal } = doc
       const bals = [
-        {title: "Balance", bal: bal.balance},
-        {title: "Investment", bal: bal.investment},
-        {title: "Profit", bal: bal.profit},
-        {title: "Savings", bal: bal.savings},
-        {title: "Withdrawal", bal: bal.withdrawal},
+        {title: "Balance", bal: bal?.balance},
+        {title: "Investment", bal: bal?.investment},
+        {title: "Profit", bal: bal?.profit},
+        {title: "Savings", bal: bal?.savings},
+        {title: "Withdrawal", bal: bal?.withdrawal},
       ]
       setBalance(bals)
       console.log(bals)
 
-      if(bal.balance > 0){
+      if(bal?.balance > 0){
         setIsActive(true)
       } else {
         setIsActive(false)

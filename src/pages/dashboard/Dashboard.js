@@ -31,17 +31,29 @@ import { investment } from '../../utils/investText';
 
 
 export default function Dashboard() {
-  const { document, isPending } = useCollection('profile', false, true);
+  const { document: doc, isPending } = useCollection('profile', false, true);
   const { authIsReady, user } = useAuth()
   const { page } = useParams();
   const navigate = useNavigate()
 
   useEffect(() => {
+    const chatDiv = document.getElementById('tidio-chat')
+    if(chatDiv){
+      chatDiv.style.display = 'none';
+    }
+
     if(authIsReady){
       if(!user){
         navigate('/login')
       }
     }
+
+    return () => {
+      if(chatDiv){
+        chatDiv.style.display = 'block';
+      }
+    }
+
   }, [authIsReady, user, navigate])
 
 
@@ -59,7 +71,7 @@ export default function Dashboard() {
 
 
 
-  return ((authIsReady && user && document) &&
+  return ((authIsReady && user && doc) &&
     <div className={styles.container}>
       <div className={styles.side}>
         <SideNav />
@@ -92,7 +104,7 @@ export default function Dashboard() {
 
       {page === 'profile' &&
       <div className={styles.main}>
-        <Profile document={document}/>
+        <Profile document={doc}/>
       </div>
       }
 
