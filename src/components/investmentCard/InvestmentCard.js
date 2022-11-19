@@ -28,6 +28,24 @@ export default function InvestmentCard({ title, subtitle, plans, showHeader }) {
       }
     }
   }, [document, user])
+
+  const resetInput = () => {
+    setModalSuccess('Investment successful')
+    setTimeout(() => {
+      setShowModal(false)
+      setAmount(null)
+      setPlan(null)
+      setModalError(null)
+      setModalSuccess(null)
+    }, 3000)
+  }
+
+  const errorManager = (error) => {
+    setModalError(error)
+    setTimeout(() => {
+      setModalError(null)
+    }, 3000)
+  }
   
 
   const handleInvest = (plan) => {
@@ -43,33 +61,124 @@ export default function InvestmentCard({ title, subtitle, plans, showHeader }) {
         // parse amount to number
         const amountNumber = Number(amount);
         const { bal } = filteredDoc[0];
-        if(bal.balance >= amountNumber && amountNumber >= 100){
-          const newBal = bal.balance - amountNumber;
-          const newInvest = bal.investment + amountNumber;
-          const newBalances = {
-            balance: newBal,
-            investment: newInvest,
-            profit: bal.profit,
-            savings: bal.savings,
-            withdrawal: bal.withdrawal,
-          }
 
-          await updateDoc(ref, {
-            "bal": newBalances
-          });
-          setModalSuccess('Investment successful')
-          setTimeout(() => {
-            setShowModal(false)
-            setAmount(null)
-            setPlan(null)
-            setModalError(null)
-            setModalSuccess(null)
-          }, 3000)
-        } else {
-          setModalError('Insufficient funds')
-          setTimeout(() => {
-            setModalError(null)
-          }, 3000)
+        // Trial plan investment
+        if(plan === "Trial"){
+          if(bal.balance >= amountNumber && amountNumber >= 100){
+            const newBal = bal.balance - amountNumber;
+            const newInvest = bal.investment + amountNumber;
+            const newBalances = {
+              balance: newBal,
+              investment: newInvest,
+              profit: bal.profit,
+              savings: bal.savings,
+              withdrawal: bal.withdrawal,
+            }
+
+            await updateDoc(ref, {"bal": newBalances});
+            resetInput();
+          } else {
+            errorManager('Insufficient balance')
+          }
+        }
+
+
+        // Promotion plan investment
+        if(plan === "Promotion"){
+          if(amountNumber === 1500){
+            if(bal.balance >= amountNumber){
+              const newBal = bal.balance - amountNumber;
+              const newInvest = bal.investment + amountNumber;
+              const newBalances = {
+                balance: newBal,
+                investment: newInvest,
+                profit: bal.profit,
+                savings: bal.savings,
+                withdrawal: bal.withdrawal,
+              }
+
+              await updateDoc(ref, {"bal": newBalances });
+              resetInput();
+            } else {
+              errorManager('Insufficient balance')
+            }
+          } else {
+            errorManager('Amount must be 1500')
+          }
+        }
+
+        // Expert plan investment
+        if(plan === "Expert"){
+          if(amountNumber === 3000){
+            if(bal.balance >= amountNumber){
+              const newBal = bal.balance - amountNumber;
+              const newInvest = bal.investment + amountNumber;
+              const newBalances = {
+                balance: newBal,
+                investment: newInvest,
+                profit: bal.profit,
+                savings: bal.savings,
+                withdrawal: bal.withdrawal,
+              }
+
+              await updateDoc(ref, {"bal": newBalances });
+              resetInput();
+            } else {
+              errorManager('Insufficient balance')
+            }
+          } else {
+            errorManager('Amount must be 3000')
+          }
+        }
+
+
+        // Exclusive plan investment
+        if(plan === "Exclusive"){
+          if(amountNumber === 5000){
+            if(bal.balance >= amountNumber){
+              const newBal = bal.balance - amountNumber;
+              const newInvest = bal.investment + amountNumber;
+              const newBalances = {
+                balance: newBal,
+                investment: newInvest,
+                profit: bal.profit,
+                savings: bal.savings,
+                withdrawal: bal.withdrawal,
+              }
+
+              await updateDoc(ref, {"bal": newBalances });
+              resetInput();
+            } else {
+              errorManager('Insufficient balance')
+            }
+          } else {
+            errorManager('Amount must be 5000')
+          }
+        }
+
+
+        // Premium plan investment
+        if(plan === "Premium"){
+          if(amountNumber === 10000){
+            if(bal.balance >= amountNumber){
+              const newBal = bal.balance - amountNumber;
+              const newInvest = bal.investment + amountNumber;
+              const newBalances = {
+                balance: newBal,
+                investment: newInvest,
+                profit: bal.profit,
+                savings: bal.savings,
+                withdrawal: bal.withdrawal,
+              }
+
+              await updateDoc(ref, {"bal": newBalances });
+              resetInput();
+            } else {
+              errorManager('Insufficient balance')
+            }
+          } else {
+            errorManager('Amount must be 10000')
+          }
         }
       }
     }

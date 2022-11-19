@@ -19,7 +19,6 @@ export default function Admin() {
   const [savings, setSavings] = useState(null);
   const [displayName, setDisplayName] = useState(null);
   const [email, setEmail] = useState(null);
-  const ref = doc(db, "profile", user.email);
   const [pending, setPending] = useState(false);
   const [message, setMessage] = useState(null);
 
@@ -40,6 +39,7 @@ const filter = (email) => {
 }
 
 const handleSubmit = async(e) => {
+  const ref = doc(db, "profile", user.email);
   setPending(true)
   e.preventDefault()
 
@@ -67,7 +67,7 @@ const handleSubmit = async(e) => {
 
   return ((authIsReady && user) && 
     <div className={styles.container}>
-      <DashboardNav />
+      <DashboardNav admin={true}/>
       <Users document={document} error={error} isPending={isPending} filter={filter}/>
 
       {singleDoc &&

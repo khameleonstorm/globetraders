@@ -154,8 +154,12 @@
 
 
 @media screen and (max-width: 600px){
-  .modalcontent{
-    width: 90%;
-  }
+.modalcontent{
+  width: 90%;
+}
+
+.hello{
+  padding-left: 50px !important;
+}
   
 }

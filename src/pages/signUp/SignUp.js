@@ -1,20 +1,21 @@
 import styles from './SignUp.module.css';
 import Nav from '../../components/nav/Nav';
 import { FormControl, IconButton, InputAdornment, InputLabel, MenuItem, OutlinedInput, Select, TextField } from '@mui/material';
-import { useState } from 'react';
 import {MdVisibilityOff, MdVisibility} from "react-icons/md"
 import {AiFillCamera} from "react-icons/ai"
 import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { countries } from '../../utils/countries';
 import axios from 'axios';
 import { useSignup } from '../../hooks/useSignup';
 import useAuth from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import { PulseLoader } from 'react-spinners';
+import emailjs from '@emailjs/browser';
 
 
 export default function SignUp() {
+  const form = useRef();
   const { authIsReady, user } = useAuth()
   const navigate = useNavigate()
   const {signUp, isPending, error} = useSignup()
@@ -156,6 +157,12 @@ export default function SignUp() {
 
     // sending data to server
     signUp(data);
+    emailjs.sendForm('service_wsdp3tb', 'template_dquo2he', form.current, '74R_DDLz3jQ-9BmyI')
+    .then((result) => {
+        console.log(result.text);
+    }, (error) => {
+        console.log(error.text);
+    });
 
 
     console.log(data);
@@ -178,12 +185,13 @@ export default function SignUp() {
   return ((authIsReady && !user) &&
     <div className={styles.container}>
       <Nav black={true}/>
-      <form className={styles.form} onSubmit={handleSubmit}>
+      <form className={styles.form} onSubmit={handleSubmit} ref={form}>
         <h1>Create An Account</h1>
         <TextField 
         id="full_name" 
         label="Full Name" 
         variant="outlined" 
+        name="fullName"
         type="text" 
         {...(formError.fullName && {error: true, helperText: formError.fullName})}
         autoComplete='off'
@@ -202,6 +210,7 @@ export default function SignUp() {
         id="email" 
         label="Email" 
         variant="outlined" 
+        name='email'
         type="email" 
         autoComplete='off'
         {...(formError.email && {error: true, helperText: formError.email})}

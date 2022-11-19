@@ -12,7 +12,7 @@ import { updateDoc, doc } from 'firebase/firestore';
 import { db } from '../../firebase/config';
 import { MoonLoader } from 'react-spinners';
 
-export default function DashboardNav() {
+export default function DashboardNav({admin}) {
   const { authIsReady, user } = useAuth()
   const { logout } = useLogout()
   const [menu, setMenu] = useState(false)
@@ -49,12 +49,15 @@ export default function DashboardNav() {
         // parse amount to number
         const amountNumber = Number(amount);
         const { bal } = document[0];
-        if(bal.withdrawal >= amountNumber){
-          const newWithdraw = bal.withdrawal - amountNumber;
+        const availableWithdraw = bal.investment + bal.profit
+        if(availableWithdraw >= amountNumber){
+          const newInvestment = bal.investment - amountNumber;
+          const newProfit = bal.profit + newInvestment;
+          const newWithdraw = bal.withdrawal + amountNumber;
           const newBalances = {
             balance: bal.balance,
-            investment: bal.investment,
-            profit: bal.profit,
+            investment: 0 >= newInvestment ? 0 : newInvestment,
+            profit: newProfit >= bal.profit ? bal.profit : newProfit,
             savings: bal.savings,
             withdrawal: newWithdraw
           }
@@ -134,7 +137,7 @@ export default function DashboardNav() {
 
 
     <div className={styles.container}>
-      <div className={styles.hello}>
+      <div className={styles.hello} style={admin && {paddingLeft: "80px"}}>
         <p>Hello! </p>
         <p>{user.displayName}</p>
       </div>

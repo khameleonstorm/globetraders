@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { Auth, db, storage } from "../firebase/config"
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"
-import { createUserWithEmailAndPassword, updateProfile, sendEmailVerification} from "firebase/auth"
+import { createUserWithEmailAndPassword, updateProfile} from "firebase/auth"
 import { doc, setDoc } from "firebase/firestore"
 import useAuth from "./useAuth"
 import { useNavigate } from "react-router-dom"
@@ -31,8 +31,6 @@ export const useSignup = () => {
                 setIsPending(false)
                 return
             }
-
-            sendEmailVerification(res.user)
             
             const imageRef = ref(storage, `images/${res.user.uid}/${image.name}`)
 
