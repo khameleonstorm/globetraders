@@ -26,11 +26,14 @@ export default function BalCard() {
   const [isActive, setIsActive] = useState(false);
   const [duration, setDuration] = useState(null);
   const [interest, setInterest] = useState(0);
-  // const [bal, setBal] = useState(null);
   const { document } = useCollection('profile', false, true);
   const ref = doc(db, "profile", user.email);
 
   const handleProfit = useCallback((bal) => {
+    if(bal.investment < 100){
+      console.log("less")
+      setDuration(null)
+    }
     if(bal.investment === 100){
       console.log("100")
       setDuration(86400)
