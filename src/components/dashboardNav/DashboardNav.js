@@ -1,5 +1,5 @@
 import styles from './DashboardNav.module.css';
-import { MdKeyboardArrowDown } from "react-icons/md";
+import { MdKeyboardArrowDown, MdOutlinePendingActions } from "react-icons/md";
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import Button from '@mui/material/Button';
@@ -22,6 +22,7 @@ export default function DashboardNav({admin}) {
   const { document } = useCollection('profile', false, true);
   const [modalError, setModalError] = useState(null);
   const [modalSuccess, setModalSuccess] = useState(false);
+  const [isPending, setIsPending] = useState(true);
   const ref = doc(db, "profile", user.email);
 
 
@@ -67,11 +68,7 @@ export default function DashboardNav({admin}) {
           });
           setModalSuccess(true)
           setTimeout(() => {
-            setModalSuccess(false)
-            setShowModal(false)
-            setAmount(null)
-            setAddress(null)
-            setModalError(null)
+            setIsPending(false)
           }, 3000)
         } else {
           setModalError('Insufficient funds')
@@ -88,15 +85,32 @@ export default function DashboardNav({admin}) {
     }
   }
 
+  const backToDashboard = () => {
+    setModalSuccess(false)
+    setShowModal(false)
+    setAmount(null)
+    setAddress(null)
+    setModalError(null)
+  }
+
 
   return ((authIsReady && user) &&
   <>
-      {modalSuccess && 
+      {(modalSuccess && isPending) && 
       <div className={styles.modalSuccess}>
         <div className={styles.modalSuccessContainer}>
           <MoonLoader color="#ffd016"/>
           <h1>Processing Your Withdrawal</h1>
+        </div>
+      </div>
+      }
+      {(modalSuccess && !isPending) && 
+      <div className={styles.modalSuccess}>
+        <div className={styles.modalSuccessContainer}>
+          <MdOutlinePendingActions size="4rem" color="#ffd016"/>
+          <h1>Withdrawal Is Pending</h1>
           <p>Contact Us For More Info!</p>
+          <button className={styles.back} onClick={backToDashboard}>Back To Dashboard</button>
         </div>
       </div>
       }

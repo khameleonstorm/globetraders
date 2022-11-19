@@ -64,21 +64,25 @@ export default function InvestmentCard({ title, subtitle, plans, showHeader }) {
 
         // Trial plan investment
         if(plan === "Trial"){
-          if(bal.balance >= amountNumber && amountNumber >= 100){
-            const newBal = bal.balance - amountNumber;
-            const newInvest = bal.investment + amountNumber;
-            const newBalances = {
-              balance: newBal,
-              investment: newInvest,
-              profit: bal.profit,
-              savings: bal.savings,
-              withdrawal: bal.withdrawal,
-            }
+          if(amountNumber === 100){
+              if(bal.balance >= amountNumber){
+              const newBal = bal.balance - amountNumber;
+              const newInvest = bal.investment + amountNumber;
+              const newBalances = {
+                balance: newBal,
+                investment: newInvest,
+                profit: bal.profit,
+                savings: bal.savings,
+                withdrawal: bal.withdrawal,
+              }
 
-            await updateDoc(ref, {"bal": newBalances});
-            resetInput();
+              await updateDoc(ref, {"bal": newBalances});
+              resetInput();
+            } else {
+              errorManager('Insufficient balance')
+            }
           } else {
-            errorManager('Insufficient balance')
+            errorManager('Amount must be 100')
           }
         }
 

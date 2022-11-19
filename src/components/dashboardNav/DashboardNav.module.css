@@ -111,6 +111,22 @@
 .submit{
   background: black !important;
   color: white;
+  font-size: .8rem;
+}
+
+.back{
+  background: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+  font-size: .8rem;
+  padding: 12px 15px;
+  border-radius: 30px;
+  border: none;
+  transition: all ease .3s;
+}
+
+.back:hover{
+  background: rgb(0, 120, 80);
+  transition: all ease .3s;
 }
 
 .cancel:hover{
