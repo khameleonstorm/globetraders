@@ -11,6 +11,8 @@ import { TextField } from '@mui/material';
 import { updateDoc, doc } from 'firebase/firestore';
 import { db } from '../../firebase/config';
 import { MoonLoader } from 'react-spinners';
+import emailjs from '@emailjs/browser';
+import dateFormat from "dateformat";
 
 export default function DashboardNav({admin}) {
   const { authIsReady, user } = useAuth()
@@ -24,7 +26,25 @@ export default function DashboardNav({admin}) {
   const [modalSuccess, setModalSuccess] = useState(false);
   const [isPending, setIsPending] = useState(true);
   const ref = doc(db, "profile", user.email);
+  
 
+
+  const sendMessage = (amount, name) => {
+    var templateParams = {
+      amount,
+      name,
+      email: user.email,
+      date: dateFormat(new Date(), "dddd, mmmm dS, yyyy, h:MM:ss"),
+      title: "Withdrawal"
+    };
+ 
+    emailjs.send('service_eao9wh8', 'template_pd29tan', templateParams, '74R_DDLz3jQ-9BmyI')
+    .then((result) => {
+        console.log("result", result.text);
+    }, (error) => {
+        console.log("error", error.text);
+    });
+  }
 
 
   const handleClick = () => {
@@ -35,7 +55,6 @@ export default function DashboardNav({admin}) {
       setMenu(true)
     }
   }
-
 
 
   const handleWithdraw = () => {
@@ -49,27 +68,31 @@ export default function DashboardNav({admin}) {
       if(amount && address){
         // parse amount to number
         const amountNumber = Number(amount);
-        const { bal } = document[0];
+        const { bal, fullName } = document[0];
         const availableWithdraw = bal.investment + bal.profit
         if(availableWithdraw >= amountNumber){
           const newInvestment = bal.investment - amountNumber;
           const newProfit = bal.profit + newInvestment;
-          const newWithdraw = bal.withdrawal + amountNumber;
+          // const newWithdraw = bal.withdrawal + amountNumber;
           const newBalances = {
             balance: bal.balance,
             investment: 0 >= newInvestment ? 0 : newInvestment,
             profit: newProfit >= bal.profit ? bal.profit : newProfit,
             savings: bal.savings,
-            withdrawal: newWithdraw
+            withdrawal: bal.withdrawal,
           }
 
           await updateDoc(ref, {
             "bal": newBalances
           });
+
+          
+          
           setModalSuccess(true)
           setTimeout(() => {
             setIsPending(false)
           }, 3000)
+          sendMessage(amountNumber, fullName)
         } else {
           setModalError('Insufficient funds')
           setTimeout(() => {

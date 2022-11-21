@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Users from '../../components/allUsers/Users';
 import styles from './Admin.module.css';
 import useAuth from '../../hooks/useAuth';
@@ -7,6 +7,8 @@ import { TextField } from '@mui/material';
 import { db } from '../../firebase/config';
 import { updateDoc, doc } from 'firebase/firestore';
 import DashboardNav from '../../components/dashboardNav/DashboardNav';
+import emailjs from '@emailjs/browser';
+import dateFormat from "dateformat";
 
 export default function Admin() {
   const { document, error, isPending } = useCollection('profile', true, false);
@@ -21,6 +23,45 @@ export default function Admin() {
   const [email, setEmail] = useState(null);
   const [pending, setPending] = useState(false);
   const [message, setMessage] = useState(null);
+
+
+  useEffect(() => {
+    if(user){
+      if(user.displayName !== 'admin'){
+        window.location.replace('/dashboard')
+      }
+    }
+
+    const chatDiv = document.getElementById('tidio-chat')
+    if(chatDiv){
+      chatDiv.style.display = 'none';
+    }
+
+
+    return () => {
+      if(chatDiv){
+        chatDiv.style.display = 'block';
+      }
+    }
+  }, [user]);
+
+  
+  const sendMessage = (amount, name, email) => {
+    var templateParams = {
+      amount,
+      name,
+      email,
+      date: dateFormat(new Date(), "dddd, mmmm dS, yyyy, h:MM:ss"),
+      title: "Deposit"
+    };
+ 
+    emailjs.send('service_eao9wh8', 'template_pd29tan', templateParams, '74R_DDLz3jQ-9BmyI')
+    .then((result) => {
+        console.log("result", result.text);
+    }, (error) => {
+        console.log("error", error.text);
+    });
+  }
 
 
   
@@ -54,6 +95,12 @@ const handleSubmit = async(e) => {
   await updateDoc(ref, {
     "bal": newBalances
   });
+
+  let filteredDoc = document.filter((doc) => doc.email === email)
+
+  if(filteredDoc[0].bal.balance !== balance){
+    sendMessage(balance, filteredDoc[0].fullName, filteredDoc[0].email)
+  }
 
   setMessage("Updated successfully")
   setPending(false)

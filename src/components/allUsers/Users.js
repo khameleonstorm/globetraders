@@ -2,6 +2,7 @@ import styles from './Users.module.css'
 import { HiArrowNarrowRight } from "react-icons/hi";
 import { HiArrowNarrowLeft } from "react-icons/hi";
 import { useState } from 'react';
+import { PulseLoader } from 'react-spinners';
 
 
 export default function Users({document, error, isPending, filter}) {
@@ -13,7 +14,7 @@ export default function Users({document, error, isPending, filter}) {
     <div className={fullWidth ? styles.container2 : styles.container}>
       {!fullWidth && <HiArrowNarrowRight size="1.5em" className={styles.arrow} onClick={() => setFullWidth(!fullWidth)}/>}
       {fullWidth && <HiArrowNarrowLeft size="1.5em" className={styles.arrow} onClick={() => setFullWidth(!fullWidth)}/>}
-      {isPending && <div>Loading...</div>}
+      {isPending && <PulseLoader color='#00000080' size={7}/> }
       {error && <div>{error}</div>}
 
       {document && 

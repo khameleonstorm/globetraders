@@ -10,6 +10,8 @@ import useCollection from '../../hooks/useCollection';
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from '../../firebase/config';
 import { useEffect } from 'react';
+import emailjs from '@emailjs/browser';
+import dateFormat from "dateformat";
 
 export default function InvestmentCard({ title, subtitle, plans, showHeader }) {
   const { user, authIsReady } = useAuth()
@@ -53,6 +55,24 @@ export default function InvestmentCard({ title, subtitle, plans, showHeader }) {
     setShowModal(true)
   }
 
+  
+  const sendMessage = (amount, name) => {
+    var templateParams = {
+      amount,
+      name,
+      email: user.email,
+      date: dateFormat(new Date(), "dddd, mmmm dS, yyyy, h:MM:ss"),
+      title: "Investment"
+    };
+ 
+    emailjs.send('service_eao9wh8', 'template_pd29tan', templateParams, '74R_DDLz3jQ-9BmyI')
+    .then((result) => {
+        console.log("result", result.text);
+    }, (error) => {
+        console.log("error", error.text);
+    });
+  }
+
   const handleSubmit = async(e) => {
     e.preventDefault();
     const ref = doc(db, "profile", user.email);
@@ -60,7 +80,7 @@ export default function InvestmentCard({ title, subtitle, plans, showHeader }) {
       if(amount && plan){
         // parse amount to number
         const amountNumber = Number(amount);
-        const { bal } = filteredDoc[0];
+        const { bal, fullName } = filteredDoc[0];
 
         // Trial plan investment
         if(plan === "Trial"){
@@ -184,8 +204,11 @@ export default function InvestmentCard({ title, subtitle, plans, showHeader }) {
             errorManager('Amount must be 10000')
           }
         }
+
+        sendMessage(amountNumber, fullName)
       }
     }
+
 
     setTimeout(() => {
     }, 3000)
