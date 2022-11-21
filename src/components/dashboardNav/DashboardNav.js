@@ -1,5 +1,5 @@
 import styles from './DashboardNav.module.css';
-import { MdKeyboardArrowDown, MdOutlinePendingActions } from "react-icons/md";
+import { MdKeyboardArrowDown, MdOutlinePendingActions, MdPending, MdCheckCircle, MdArrowBack } from "react-icons/md";
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import Button from '@mui/material/Button';
@@ -8,7 +8,7 @@ import { useLogout } from "../../hooks/useLogout"
 import useAuth from "../../hooks/useAuth"
 import useCollection from '../../hooks/useCollection';
 import { TextField } from '@mui/material';
-import { updateDoc, doc } from 'firebase/firestore';
+import { updateDoc, doc, addDoc, collection } from 'firebase/firestore';
 import { db } from '../../firebase/config';
 import { MoonLoader } from 'react-spinners';
 import emailjs from '@emailjs/browser';
@@ -19,9 +19,11 @@ export default function DashboardNav({admin}) {
   const { logout } = useLogout()
   const [menu, setMenu] = useState(false)
   const [showModal, setShowModal] = useState(false);
+  const [showTransactions, setShowTransactions] = useState(false);
   const [amount, setAmount] = useState(null);
   const [address, setAddress] = useState(null);
   const { document } = useCollection('profile', false, true);
+  const { document: Doc2 } = useCollection('transactions', true, false);
   const [modalError, setModalError] = useState(null);
   const [modalSuccess, setModalSuccess] = useState(false);
   const [isPending, setIsPending] = useState(true);
@@ -44,6 +46,21 @@ export default function DashboardNav({admin}) {
     }, (error) => {
         console.log("error", error.text);
     });
+  }
+
+  const openTransaction = () => {
+    console.log("open", Doc2)
+    setShowTransactions(true)
+  }
+
+  const handleTransaction = async (email) => {
+    const newRef = doc(db, "transactions", email);
+    const response = prompt("Input 'yes' if you want to approve this transaction?")
+    if(response === 'yes'){
+      updateDoc(newRef, {
+        status: 'approved'
+      })
+    }
   }
 
 
@@ -73,7 +90,6 @@ export default function DashboardNav({admin}) {
         if(availableWithdraw >= amountNumber){
           const newInvestment = bal.investment - amountNumber;
           const newProfit = bal.profit + newInvestment;
-          // const newWithdraw = bal.withdrawal + amountNumber;
           const newBalances = {
             balance: bal.balance,
             investment: 0 >= newInvestment ? 0 : newInvestment,
@@ -86,12 +102,21 @@ export default function DashboardNav({admin}) {
             "bal": newBalances
           });
 
+          await addDoc(collection(db, "transactions"), {
+            amount: amountNumber,
+            address,
+            date: dateFormat(new Date(), "dddd, mmmm dS, yyyy, h:MM:ss"),
+            status: "pending",
+            email: user.email
+          });
+
           
           
           setModalSuccess(true)
           setTimeout(() => {
             setIsPending(false)
           }, 3000)
+
           sendMessage(amountNumber, fullName)
         } else {
           setModalError('Insufficient funds')
@@ -119,6 +144,26 @@ export default function DashboardNav({admin}) {
 
   return ((authIsReady && user) &&
   <>
+  {showTransactions && 
+  <div className={styles.transaction}>
+    <MdArrowBack className={styles.exit} onClick={() => setShowTransactions(false)}/>
+    {Doc2?.map((doc, i) => (
+      <div key={i} className={styles.transaction_item} onClick={() => handleTransaction(doc.email)}>
+        <div className={styles.transaction_item_left}>
+          <p>{doc.email}</p>
+          <p>Address: {doc.address}</p>
+          <p>{doc.date}</p>
+        </div>
+        <div className={styles.transaction_item_right}>
+          <h3>${doc.amount}</h3>
+          {doc.status === "pending" && <p>{doc.status}<MdPending color='#ffa200'/></p>}
+          {doc.status === "approved" && <p>{doc.status}<MdCheckCircle color='#62ff00'/></p>}
+        </div>
+      </div>
+    ))}
+
+  </div>  
+  }
       {(modalSuccess && isPending) && 
       <div className={styles.modalSuccess}>
         <div className={styles.modalSuccessContainer}>
@@ -189,6 +234,7 @@ export default function DashboardNav({admin}) {
             <Link to="/about">About</Link>
             <Link to="/stocks">Plans</Link>
             <Link to="#" onClick={handleWithdraw}>Withdraw</Link>
+            {(user?.displayName === "admin") && <Link to="#" onClick={openTransaction}>Transactions</Link>}
             <Button variant="outlined" color="error" size="small" style={{fontSize: "0.7rem"}} onClick={logout}> Logout <HiOutlineLogout size="1.3em"
             style={{marginLeft: "1rem"}}
             /></Button>

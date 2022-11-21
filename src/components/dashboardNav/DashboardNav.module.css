@@ -142,7 +142,7 @@
 .modalSuccess{
   width: 100vw;
   height: 100vh;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   background: white;
@@ -167,6 +167,79 @@
   color: rgba(0, 0, 0, 0.8);
 }
 
+.transaction{
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  z-index: 200000;
+  overflow-y: scroll;
+  background: whitesmoke;
+}
+
+.transaction_item{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 0 7px rgba(0, 0, 0, 0.1);
+}
+
+.transaction_item_left{
+  width: 60%;
+}
+
+.transaction_item p:nth-child(1){
+  font-size: .8rem;
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.transaction_item p:nth-child(2){
+  font-size: .7rem;
+  color: rgba(0, 0, 0, 0.7);
+  word-wrap: break-word;
+}
+
+.transaction_item p:nth-child(3){
+  font-size: .7rem;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.transaction_item_right{
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.transaction_item_right h3{
+  font-size: 1.5rem;
+  text-align: end;
+  color: #ffa200;
+}
+
+.transaction_item_right p{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.transaction_item_right p svg{
+  font-size: 1.3rem;
+}
+
+.exit{
+  margin: 7px 5px;
+}
 
 
 @media screen and (max-width: 600px){
