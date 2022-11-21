@@ -11,7 +11,7 @@ import emailjs from '@emailjs/browser';
 import dateFormat from "dateformat";
 
 export default function Admin() {
-  const { document, error, isPending } = useCollection('profile', true, false);
+  const { document: Document, error, isPending } = useCollection('profile', true, false);
   const { user, authIsReady } = useAuth();
   const [singleDoc, setSingleDoc] = useState(null);
   const [balance, setBalance] = useState(null);
@@ -66,7 +66,7 @@ export default function Admin() {
 
   
 const filter = (email) => {
-  let filteredDoc = document.filter((doc) => doc.email === email)
+  let filteredDoc = Document.filter((doc) => doc.email === email)
   setSingleDoc(filteredDoc[0])
   setBalance(filteredDoc[0].bal.balance)
   setProfit(filteredDoc[0].bal.profit)
@@ -96,7 +96,7 @@ const handleSubmit = async(e) => {
     "bal": newBalances
   });
 
-  let filteredDoc = document.filter((doc) => doc.email === email)
+  let filteredDoc = Document.filter((doc) => doc.email === email)
 
   if(filteredDoc[0].bal.balance !== balance){
     sendMessage(balance, filteredDoc[0].fullName, filteredDoc[0].email)
@@ -115,7 +115,7 @@ const handleSubmit = async(e) => {
   return ((authIsReady && user) && 
     <div className={styles.container}>
       <DashboardNav admin={true}/>
-      <Users document={document} error={error} isPending={isPending} filter={filter}/>
+      <Users document={Document} error={error} isPending={isPending} filter={filter}/>
 
       {singleDoc &&
       <div className={styles.singleUser}>
