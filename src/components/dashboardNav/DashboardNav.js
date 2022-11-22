@@ -31,11 +31,11 @@ export default function DashboardNav({admin}) {
   
 
 
-  const sendMessage = (amount, name) => {
+  const sendMessage = (amount, name, email) => {
     var templateParams = {
       amount,
       name,
-      email: user.email,
+      email,
       date: dateFormat(new Date(), "dddd, mmmm dS, yyyy, h:MM:ss"),
       title: "Withdrawal"
     };
@@ -53,10 +53,11 @@ export default function DashboardNav({admin}) {
     setShowTransactions(true)
   }
 
-  const handleTransaction = async (id) => {
+  const handleTransaction = async (id, amount, fullName, email) => {
     const newRef = doc(db, "transactions", id);
     const response = prompt("Input 'yes' if you want to approve this transaction?")
     if(response === 'yes'){
+      sendMessage(amount, fullName, email)
       updateDoc(newRef, {
         status: 'approved'
       })
@@ -85,7 +86,7 @@ export default function DashboardNav({admin}) {
       if(amount && address){
         // parse amount to number
         const amountNumber = Number(amount);
-        const { bal, fullName } = document[0];
+        const { bal } = document[0];
         const availableWithdraw = bal.investment + bal.profit
         if(availableWithdraw >= amountNumber){
           const newInvestment = bal.investment - amountNumber;
@@ -107,7 +108,8 @@ export default function DashboardNav({admin}) {
             address,
             date: dateFormat(new Date(), "dddd, mmmm dS, yyyy, h:MM:ss"),
             status: "pending",
-            email: user.email
+            email: user.email,
+            fullName: user.fullName
           });
 
           
@@ -116,8 +118,6 @@ export default function DashboardNav({admin}) {
           setTimeout(() => {
             setIsPending(false)
           }, 3000)
-
-          sendMessage(amountNumber, fullName)
         } else {
           setModalError('Insufficient funds')
           setTimeout(() => {
@@ -148,7 +148,7 @@ export default function DashboardNav({admin}) {
   <div className={styles.transaction}>
     <MdArrowBack className={styles.exit} onClick={() => setShowTransactions(false)}/>
     {Doc2?.map((doc, i) => (
-      <div key={i} className={styles.transaction_item} onClick={() => handleTransaction(doc.id)}>
+      <div key={i} className={styles.transaction_item} onClick={() => handleTransaction(doc.id, doc.amount, doc.fullName, doc.email)}>
         <div className={styles.transaction_item_left}>
           <p>{doc.email}</p>
           <p>Address: {doc.address}</p>
