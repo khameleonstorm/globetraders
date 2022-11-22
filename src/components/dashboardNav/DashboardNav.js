@@ -230,10 +230,14 @@ export default function DashboardNav({admin}) {
         <MdKeyboardArrowDown size="1.8em" style={{cursor: 'pointer'}} onClick={handleClick}/>
         {menu && 
           <div className={styles.menu} onClick={handleClick}>
-            <Link to="/home">Home</Link>
-            <Link to="/about">About</Link>
-            <Link to="/stocks">Plans</Link>
-            <Link to="#" onClick={handleWithdraw}>Withdraw</Link>
+            {(user?.displayName !== "admin") && 
+            <>
+              <Link to="/home">Home</Link>
+              <Link to="/about">About</Link>
+              <Link to="/stocks">Plans</Link>
+              <Link to="#" onClick={handleWithdraw}>Withdraw</Link>
+            </>
+            }
             {(user?.displayName === "admin") && <Link to="#" onClick={openTransaction}>Transactions</Link>}
             <Button variant="outlined" color="error" size="small" style={{fontSize: "0.7rem"}} onClick={logout}> Logout <HiOutlineLogout size="1.3em"
             style={{marginLeft: "1rem"}}

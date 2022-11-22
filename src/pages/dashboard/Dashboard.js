@@ -43,6 +43,9 @@ export default function Dashboard() {
     }
 
     if(authIsReady){
+      if(user.displayName === "admin"){
+        navigate('/admin')
+      }
       if(!user){
         navigate('/login')
       }

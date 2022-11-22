@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Users from '../../components/allUsers/Users';
 import styles from './Admin.module.css';
 import useAuth from '../../hooks/useAuth';
@@ -23,12 +24,13 @@ export default function Admin() {
   const [email, setEmail] = useState(null);
   const [pending, setPending] = useState(false);
   const [message, setMessage] = useState(null);
+  const navigate = useNavigate()
 
 
   useEffect(() => {
     if(user){
       if(user.displayName !== 'admin'){
-        window.location.replace('/dashboard')
+        navigate('/dashboard')
       }
     }
 
@@ -66,6 +68,7 @@ export default function Admin() {
 
   
 const filter = (email) => {
+  console.log(Document, email)
   let filteredDoc = Document.filter((doc) => doc.email === email)
   setSingleDoc(filteredDoc[0])
   setBalance(filteredDoc[0].bal.balance)
@@ -75,12 +78,10 @@ const filter = (email) => {
   setSavings(filteredDoc[0].bal.savings)
   setDisplayName(filteredDoc[0].displayName)
   setEmail(filteredDoc[0].email)
-
-  console.log(singleDoc, balance, profit, investment, withdrawal, savings)
 }
 
 const handleSubmit = async(e) => {
-  const ref = doc(db, "profile", user.email);
+  const ref = doc(db, "profile", email);
   setPending(true)
   e.preventDefault()
 
