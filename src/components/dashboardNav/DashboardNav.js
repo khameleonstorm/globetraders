@@ -53,8 +53,8 @@ export default function DashboardNav({admin}) {
     setShowTransactions(true)
   }
 
-  const handleTransaction = async (email) => {
-    const newRef = doc(db, "transactions", email);
+  const handleTransaction = async (id) => {
+    const newRef = doc(db, "transactions", id);
     const response = prompt("Input 'yes' if you want to approve this transaction?")
     if(response === 'yes'){
       updateDoc(newRef, {
@@ -148,7 +148,7 @@ export default function DashboardNav({admin}) {
   <div className={styles.transaction}>
     <MdArrowBack className={styles.exit} onClick={() => setShowTransactions(false)}/>
     {Doc2?.map((doc, i) => (
-      <div key={i} className={styles.transaction_item} onClick={() => handleTransaction(doc.email)}>
+      <div key={i} className={styles.transaction_item} onClick={() => handleTransaction(doc.id)}>
         <div className={styles.transaction_item_left}>
           <p>{doc.email}</p>
           <p>Address: {doc.address}</p>
