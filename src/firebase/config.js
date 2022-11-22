@@ -7,12 +7,12 @@ import { getStorage } from "firebase/storage";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBLFMUHU-wWwVx3c8ghuXm4n7HhOifnFOQ",
-  authDomain: "globetraderz.firebaseapp.com",
-  projectId: "globetraderz",
-  storageBucket: "globetraderz.appspot.com",
-  messagingSenderId: "915475878749",
-  appId: "1:915475878749:web:5a38c0404b94492d88ceb4"
+  apiKey: "AIzaSyCAPCu4g7iVoaETkigO854E6xb1xG4zO4U",
+  authDomain: "globetraderx.firebaseapp.com",
+  projectId: "globetraderx",
+  storageBucket: "globetraderx.appspot.com",
+  messagingSenderId: "436102594442",
+  appId: "1:436102594442:web:8779f9a3bfbf1d8fead273"
 };
 
 // Initialize Firebase
