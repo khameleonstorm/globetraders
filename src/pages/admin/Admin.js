@@ -28,10 +28,8 @@ export default function Admin() {
 
 
   useEffect(() => {
-    if(user){
-      if(user.displayName !== 'admin'){
-        navigate('/dashboard')
-      }
+    if(user?.email !== 'worldofhydras@gmail.com'){
+      navigate('/dashboard')
     }
 
     const chatDiv = document.getElementById('tidio-chat')
@@ -113,7 +111,7 @@ const handleSubmit = async(e) => {
 
 
 
-  return ((authIsReady && user) && 
+  return ((authIsReady && user?.email === "worldofhydras@gmail.com") && 
     <div className={styles.container}>
       <DashboardNav admin={true}/>
       <Users document={Document} error={error} isPending={isPending} filter={filter}/>

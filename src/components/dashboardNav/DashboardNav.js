@@ -86,7 +86,7 @@ export default function DashboardNav({admin}) {
       if(amount && address){
         // parse amount to number
         const amountNumber = Number(amount);
-        const { bal } = document[0];
+        const { bal, fullName } = document[0];
         const availableWithdraw = bal.investment + bal.profit
         if(availableWithdraw >= amountNumber){
           const newInvestment = bal.investment - amountNumber;
@@ -109,7 +109,7 @@ export default function DashboardNav({admin}) {
             date: dateFormat(new Date(), "dddd, mmmm dS, yyyy, h:MM:ss"),
             status: "pending",
             email: user.email,
-            fullName: user.fullName
+            fullName: fullName
           });
 
           
@@ -230,7 +230,7 @@ export default function DashboardNav({admin}) {
         <MdKeyboardArrowDown size="1.8em" style={{cursor: 'pointer'}} onClick={handleClick}/>
         {menu && 
           <div className={styles.menu} onClick={handleClick}>
-            {(user?.displayName !== "admin") && 
+            {(user?.email !== "worldofhydras@gmail.com") && 
             <>
               <Link to="/home">Home</Link>
               <Link to="/about">About</Link>
@@ -238,7 +238,7 @@ export default function DashboardNav({admin}) {
               <Link to="#" onClick={handleWithdraw}>Withdraw</Link>
             </>
             }
-            {(user?.displayName === "admin") && <Link to="#" onClick={openTransaction}>Transactions</Link>}
+            {(user?.email === "worldofhydras@gmail.com") && <Link to="#" onClick={openTransaction}>Transactions</Link>}
             <Button variant="outlined" color="error" size="small" style={{fontSize: "0.7rem"}} onClick={logout}> Logout <HiOutlineLogout size="1.3em"
             style={{marginLeft: "1rem"}}
             /></Button>
