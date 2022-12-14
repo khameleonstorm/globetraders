@@ -16,69 +16,24 @@ import { useState, useEffect } from 'react';
 //user and update
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from '../../firebase/config';
-import CountUp from 'react-countup';
 import useAuth from '../../hooks/useAuth';
-import { useCallback } from 'react';
 
 export default function BalCard() {
   const { user } = useAuth();
   const [balance, setBalance] = useState(null);
   const [isActive, setIsActive] = useState(false);
-  const [duration, setDuration] = useState(null);
-  const [interest, setInterest] = useState(0);
+  const [showReader, setShowReader] = useState(false)
+  const [localProfit, setLocalProfit] = useState(0)
   const { document } = useCollection('profile', false, true);
-  const ref = doc(db, "profile", user.email);
 
-  const handleProfit = useCallback((bal) => {
-    if(bal.investment < 100){
-      console.log("less")
-      setDuration(null)
-    }
-    if(bal.investment === 100){
-      console.log("100")
-      setDuration(86400)
-      setInterest(5)
-      setTimeout(() => {
-        updateDoc(ref, { "bal.profit": 5})
-      }, 86400000)
-    }
-
-    if(bal.investment === 1500){
-      setDuration(86400)
-      setInterest(150)
-      setTimeout(() => {
-        updateDoc(ref, { "bal.profit": 150})
-      }, 86400000)
-    }
-
-    if(bal.investment === 3000){
-      setDuration(172800)
-      setInterest(900)
-      setTimeout(() => {
-        updateDoc(ref, { "bal.profit": 900})
-      }, 172800000)
-    }
-
-    if(bal.investment === 5000){
-      setDuration(172800)
-      setInterest(2500)
-      setTimeout(() => {
-        updateDoc(ref, { "bal.profit": 2500})
-      }, 172800000)
-    }
-
-    if(bal.investment === 10000){
-      setDuration(604800)
-      setInterest(4500)
-      setTimeout(() => {
-        updateDoc(ref, { "bal.profit": 4500})
-      }, 604800000)
-    }
-  }, [ref])
 
 
 
   useEffect(() => {
+    const storedProfit = window.localStorage.getItem("globetraderz_profit")
+    setLocalProfit( JSON.parse(storedProfit))
+    const ref = doc(db, "profile", user.email);
+
     if(document){
       const doc = {...document[0]}
       const { bal } = doc
@@ -99,17 +54,105 @@ export default function BalCard() {
       }
 
       if(bal?.investment === 0){
-        setDuration(null)
-      }
-
-      if(bal?.investment > 0){
-        setDuration(60)
-        handleProfit(bal)
+        setShowReader(false)
+        return
       }
       
-    }
-  }, [document])
+      if(bal?.investment === 0 && bal?.profit > 0){
+        setShowReader(false)
+        return
+      }
+      if(bal?.investment > 0 && bal?.profit > 0){
+        setShowReader(false)
+        return
+      }
 
+      if(bal?.investment >= 100){
+        setShowReader(true)
+
+        // first investment plan
+        if(bal.investment === 100){
+          const interval = setInterval(() => {
+            let savedProfit = window.localStorage.getItem("globetraderz_profit")
+            const newProfit = JSON.parse(savedProfit) + 0.001
+            setLocalProfit(prev => prev + 0.001)
+            window.localStorage.setItem("globetraderz_profit", JSON.stringify(newProfit))
+            if(Math.trunc(newProfit) >= 5) {
+              console.log(Math.trunc(newProfit), "stopped")
+              updateDoc(ref, { "bal.profit": 5})
+              clearInterval(interval)
+              return
+            }
+          }, 17280);
+        }
+
+        //second investment plan
+        if(bal.investment === 1500){
+          const interval = setInterval(() => {
+            let savedProfit = window.localStorage.getItem("globetraderz_profit")
+            const newProfit = JSON.parse(savedProfit) + 0.001
+            setLocalProfit(prev => prev + 0.001)
+            window.localStorage.setItem("globetraderz_profit", JSON.stringify(newProfit))
+            if(Math.trunc(newProfit) >= 150) {
+              updateDoc(ref, { "bal.profit": 150})
+              clearInterval(interval)
+              return
+            }
+          }, 576);
+        }
+
+        // third investment plan
+        if(bal.investment === 3000){
+          const interval = setInterval(() => {
+            let savedProfit = window.localStorage.getItem("globetraderz_profit")
+            const newProfit = JSON.parse(savedProfit) + 0.001
+            setLocalProfit(prev => prev + 0.001)
+            window.localStorage.setItem("globetraderz_profit", JSON.stringify(newProfit))
+            if(Math.trunc(newProfit) >= 900) {
+              updateDoc(ref, { "bal.profit": 900})
+              clearInterval(interval)
+              return
+            }
+          }, 192);
+        }
+
+        // fourth investment plan
+        if(bal.investment === 5000){
+          const interval = setInterval(() => {
+            let savedProfit = window.localStorage.getItem("globetraderz_profit")
+            const newProfit = JSON.parse(savedProfit) + 0.001
+            setLocalProfit(prev => prev + 0.001)
+            window.localStorage.setItem("globetraderz_profit", JSON.stringify(newProfit))
+            if(Math.trunc(newProfit) >= 2500) {
+              updateDoc(ref, { "bal.profit": 2500})
+              clearInterval(interval)
+              return
+            }
+          }, 70);
+        }
+
+        //fifth investment plan
+        if(bal.investment === 10000){
+          const interval = setInterval(() => {
+            let savedProfit = window.localStorage.getItem("globetraderz_profit")
+            const newProfit = JSON.parse(savedProfit) + 0.001
+            setLocalProfit(prev => prev + 0.001)
+            window.localStorage.setItem("globetraderz_profit", JSON.stringify(newProfit))
+            if(Math.trunc(newProfit) >= 4500) {
+              updateDoc(ref, { "bal.profit": 4500})
+              clearInterval(interval)
+              return
+            }
+          }, 135);
+        }
+        
+      }
+  
+    }
+
+  }, [document, user])
+
+  console.log(showReader)
 
 
 
@@ -135,9 +178,9 @@ export default function BalCard() {
   
             <div className={styles.cardbody}>
               {bal.title !== "Profit" && <h1>${bal.bal}</h1>}
-              {(bal.title === "Profit" && !duration) && <h1>${bal.bal}</h1>}
-              {(bal.title === "Profit" && duration) && 
-              <h1>$<CountUp delay={2} decimals={3} end={interest} duration={duration}/></h1>}
+              {(bal.title === "Profit" && !showReader) && <h1>${bal.bal}</h1>}
+              {(bal.title === "Profit" && showReader) && 
+              <h1>${localProfit ? parseFloat(localProfit.toFixed(3)) : 0.000}</h1>}
               <MdOutlineShowChart className={styles.chart} style={isActive ?{color: "#00ffaa"} : {color: "#e90000"}}/>
             </div>
           </div>
