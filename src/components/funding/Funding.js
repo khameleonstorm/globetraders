@@ -65,7 +65,7 @@ export default function Funding() {
             <input
             type="text"
             ref={textAreaRef}
-            defaultValue={wallet[coin].address}
+            value={wallet[coin].address}
             disabled
             />
         </div>
