@@ -3,6 +3,7 @@ import { NavLink, Link } from "react-router-dom"
 import styles from "./Nav.module.css"
 import { useEffect, useState } from "react"
 import useAuth from "../../hooks/useAuth"
+import { Helmet } from "react-helmet"
 
 export default function Nav({black}) {
   const [navbg, setNavbg] = useState(false)
@@ -37,11 +38,23 @@ export default function Nav({black}) {
 
   return (
     <>
+      <Helmet>
+        <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+          <script type="text/javascript">
+            {`
+              function googleTranslateElementInit() {
+                new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+              }
+            `}
+          </script>
+      </Helmet>
       <nav className={navbg? styles.container2 : styles.container}>
         <Link to="/" className={styles.logo}>
           <img src={logo} alt="logo"/>
           <h2 style={black?{color: "black"}: {color: "inherit"}}>TRADERS</h2>
         </Link>
+
+        <div id="google_translate_element"></div>
 
         {!(black) &&
           <div className={styles.menu}  style={showMenu ? {right:  "0"} : {right:  '-100%'}} onClick={handleClick}>

@@ -76,3 +76,34 @@ a.active::after{
     width: 100%;
   }
 }
+
+
+.skiptranslate iframe{
+  display: none !important;
+}
+
+#google_translate_element{
+  height: 35px;
+  overflow: hidden;
+  border-radius: 5px;
+}
+
+#google_translate_element select{
+  padding: 5px 0 5px 10px;
+  background: transparent;
+  border: none;
+  font-weight: 1.1rem;
+  font-family: sans-serif;
+}
+
+#google_translate_element select option{
+  color: black;
+}
+
+#google_translate_element select:first-child{
+  color: white;
+}
+
+#google_translate_element span{
+  display: none;
+}
