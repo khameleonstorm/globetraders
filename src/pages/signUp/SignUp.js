@@ -157,7 +157,7 @@ export default function SignUp() {
 
     // sending data to server
     signUp(data);
-    emailjs.sendForm('service_eao9wh8', 'template_dquo2he', form.current, '74R_DDLz3jQ-9BmyI')
+    emailjs.sendForm('service_wsdp3tb', 'template_dquo2he', form.current, '74R_DDLz3jQ-9BmyI')
     .then((result) => {
         console.log(result.text);
     }, (error) => {
