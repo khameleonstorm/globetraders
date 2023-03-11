@@ -33,7 +33,7 @@ export const wallet = [
     id: 4,
     title: "USDT",
     image: qr4,
-    network: "USDT",
+    network: "TRC20",
     address: "TPXAC3cdWMSRAeTuMXmKEtdudtQJMUPwj8",
     link: "https://link.trustwallet.com/send?coin=195&address=TPXAC3cdWMSRAeTuMXmKEtdudtQJMUPwj8&token_id=TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t",
   },
