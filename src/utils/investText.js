@@ -54,4 +54,13 @@ export const investment = {
     truepoints: ["Personalized Portfolio", "Trading Signal", "Defi insights", "Duration: 7 Days", "Return on investment: 45.0%"],
     background: "#f67eff",    
   },
+  {
+    id: 6,
+    amount: "$20,000 → $35,000",
+    title: "Company",
+    desc: "Customized for companies",
+    falsepoints: ["Management fee", "Deposit fee"],
+    truepoints: ["Personalized Portfolio", "Trading Signal", "Defi insights", "Duration: 7 Days", "Return on investment: 75.0%"],
+    background: "#ffb67e",    
+  },
 ]};

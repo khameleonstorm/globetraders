@@ -205,6 +205,31 @@ export default function InvestmentCard({ title, subtitle, plans, showHeader }) {
           }
         }
 
+
+        //Company plan investment
+        if(plan === "Company"){
+          if(amountNumber === 20000){
+            if(bal.balance >= amountNumber){
+              const newBal = bal.balance - amountNumber;
+              const newInvest = bal.investment + amountNumber;
+              const newBalances = {
+                balance: newBal,
+                investment: newInvest,
+                profit: bal.profit,
+                savings: bal.savings,
+                withdrawal: bal.withdrawal,
+              }
+
+              await updateDoc(ref, {"bal": newBalances });
+              resetInput();
+            } else {
+              errorManager('Insufficient balance')
+            }
+          } else {
+            errorManager('Amount must be 20000')
+          }
+        }
+
         sendMessage(amountNumber, fullName)
       }
     }
