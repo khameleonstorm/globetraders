@@ -109,7 +109,7 @@ export default function DashboardNav({admin}) {
 
             await addDoc(collection(db, "transactions"), mailDetails);
             
-            const res = await fetch(`http://localhost:5000/send-email`, {
+            const res = await fetch(`https://globe-mail.vercel.app/send-email`, {
               method: 'POST',
               headers: {'Content-Type': 'application/json'},
               body: JSON.stringify(mailDetails),
