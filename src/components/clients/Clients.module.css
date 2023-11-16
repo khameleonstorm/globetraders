@@ -9,12 +9,14 @@
   align-items: center;
   flex-wrap: wrap;
   justify-content: space-between;
+  gap: 10px;
   padding: 0 50px;
   margin-bottom: 10px;
 }
 
 .logos img{
-  width: 12%;
+  width: 180px;
+  object-fit: cover;
 }
 
 .tvcontainer{
@@ -25,10 +27,10 @@
   display: none;
   position: relative;
 }
-
+/* 
 .tvcontainer div:first-child{
   display: block;
-}
+} */
 
 
 @media screen and (max-width: 700px){

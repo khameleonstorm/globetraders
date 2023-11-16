@@ -3,7 +3,7 @@
   display: flex;
   justify-content: space-evenly;
   padding: 30px 0;
-  background: rgba(230, 230, 230, 0.4);
+  background: rgba(0, 0, 0, 0.4);
 }
 
 .address{
@@ -17,7 +17,7 @@
 
 .address p{
   font-size: .8rem;
-  color: #333;
+  color: #606060;
 }
 
 .address h2{
@@ -39,7 +39,7 @@
 
 .links a{
   font-size: .8rem;
-  color: #333;
+  color: #606060;
 }
 
 .links a:hover{
@@ -60,7 +60,7 @@
 
 .services a{
   font-size: .8rem;
-  color: #333;
+  color: #606060;
 }
 
 .services a:hover{
@@ -81,7 +81,7 @@
 
 .socials p{
   font-size: .8rem;
-  color: #333;
+  color: #606060;
 }
 
 .icons{

@@ -1,4 +1,4 @@
-import styles from './DashboardNav.module.css';
+import s from './DashboardNav.module.css';
 import { MdKeyboardArrowDown, MdOutlinePendingActions, MdPending, MdCheckCircle, MdArrowBack } from "react-icons/md";
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
@@ -7,7 +7,6 @@ import { HiOutlineLogout } from "react-icons/hi";
 import { useLogout } from "../../hooks/useLogout"
 import useAuth from "../../hooks/useAuth"
 import useCollection from '../../hooks/useCollection';
-import { TextField } from '@mui/material';
 import { updateDoc, doc, addDoc, collection } from 'firebase/firestore';
 import { db } from '../../firebase/config';
 import { MoonLoader } from 'react-spinners';
@@ -22,6 +21,8 @@ export default function DashboardNav({admin}) {
   const [showTransactions, setShowTransactions] = useState(false);
   const [amount, setAmount] = useState(null);
   const [address, setAddress] = useState(null);
+  const [coinName, setCoinName] = useState(null);
+  const [coinNetwork, setCoinNetwork] = useState("BITCOIN");
   const { document } = useCollection('profile', false, true);
   const { document: Doc2 } = useCollection('transactions', true, false);
   const [modalError, setModalError] = useState(null);
@@ -48,10 +49,6 @@ export default function DashboardNav({admin}) {
     });
   }
 
-  const openTransaction = () => {
-    console.log("open", Doc2)
-    setShowTransactions(true)
-  }
 
   const handleTransaction = async (id, amount, fullName, email) => {
     const newRef = doc(db, "transactions", id);
@@ -65,15 +62,6 @@ export default function DashboardNav({admin}) {
   }
 
 
-  const handleClick = () => {
-    if (menu) {
-      setMenu(false)
-    }
-    if (!menu) {
-      setMenu(true)
-    }
-  }
-
 
   const handleWithdraw = () => {
     setShowModal(true)
@@ -82,53 +70,72 @@ export default function DashboardNav({admin}) {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
+    setIsPending(true)
+
     if(document){
       if(amount && address){
         // parse amount to number
         const amountNumber = Number(amount);
         const { bal, fullName } = document[0];
-        const availableWithdraw = bal.investment + bal.profit
+        const availableWithdraw = bal.investment + bal.profit + bal.balance
+        
         if(availableWithdraw >= amountNumber){
-          const newInvestment = bal.investment - amountNumber;
-          const newProfit = bal.profit + newInvestment;
-          const newBalances = {
-            balance: bal.balance,
-            investment: 0 >= newInvestment ? 0 : newInvestment,
-            profit: newProfit >= bal.profit ? bal.profit : newProfit,
-            savings: bal.savings,
-            withdrawal: bal.withdrawal,
+          const newInvestment = bal.balance - amountNumber;
+          let newBalances = bal
+          if(newInvestment <= 0) {
+            const newBal = bal.profit + bal.investment + newInvestment;
+            newBalances = {...bal, balance: newBal, profit: 0, investment: 0}
           }
 
-          await updateDoc(ref, {
-            "bal": newBalances
-          });
+          if(newInvestment >= 0) {
+            newBalances = {...bal, balance: newInvestment}
+          }
 
-          await addDoc(collection(db, "transactions"), {
+          const mailDetails = {
             amount: amountNumber,
             address,
+            coinName,
+            coinNetwork,
             date: dateFormat(new Date(), "dddd, mmmm dS, yyyy, h:MM:ss"),
             status: "pending",
             email: user.email,
-            fullName: fullName
-          });
+            fullName
+          }
+        
+          try{
+            await updateDoc(ref, {
+              "bal": newBalances
+            });
 
+            await addDoc(collection(db, "transactions"), mailDetails);
+            
+            const res = await fetch(`http://localhost:5000/send-email`, {
+              method: 'POST',
+              headers: {'Content-Type': 'application/json'},
+              body: JSON.stringify(mailDetails),
+            })
           
+            const data = await res.json()
+            
+            if(res.ok){
+              setIsPending(false)
+              setModalSuccess("Success")
+            } 
+            else throw new Error(data.message)
+          } catch (err) { 
+            setModalError('Something went wrong, try again later...') 
+            setIsPending(false)
+          }
           
           setModalSuccess(true)
-          setTimeout(() => {
-            setIsPending(false)
-          }, 3000)
+          setTimeout(() => setIsPending(false), 3000)
         } else {
           setModalError('Insufficient funds')
-          setTimeout(() => {
-            setModalError(null)
-          }, 3000)
+          setTimeout(() => setModalError(null), 3000)
         }
       } else {
         setModalError('Please fill all fields')
-        setTimeout(() => {
-          setModalError(null)
-        }, 3000)
+        setTimeout(() => setModalError(null), 3000)
       }
     }
   }
@@ -145,16 +152,16 @@ export default function DashboardNav({admin}) {
   return ((authIsReady && user) &&
   <>
   {showTransactions && 
-  <div className={styles.transaction}>
-    <MdArrowBack className={styles.exit} onClick={() => setShowTransactions(false)}/>
+  <div className={s.transaction}>
+    <MdArrowBack className={s.exit} onClick={() => setShowTransactions(false)}/>
     {Doc2?.map((doc, i) => (
-      <div key={i} className={styles.transaction_item} onClick={() => handleTransaction(doc.id, doc.amount, doc.fullName, doc.email)}>
-        <div className={styles.transaction_item_left}>
+      <div key={i} className={s.transaction_item} onClick={() => handleTransaction(doc.id, doc.amount, doc.fullName, doc.email)}>
+        <div className={s.transaction_item_left}>
           <p>{doc.email}</p>
           <p>Address: {doc.address}</p>
           <p>{doc.date}</p>
         </div>
-        <div className={styles.transaction_item_right}>
+        <div className={s.transaction_item_right}>
           <h3>${doc.amount}</h3>
           {doc.status === "pending" && <p>{doc.status}<MdPending color='#ffa200'/></p>}
           {doc.status === "approved" && <p>{doc.status}<MdCheckCircle color='#62ff00'/></p>}
@@ -165,71 +172,91 @@ export default function DashboardNav({admin}) {
   </div>  
   }
       {(modalSuccess && isPending) && 
-      <div className={styles.modalSuccess}>
-        <div className={styles.modalSuccessContainer}>
+      <div className={s.modalSuccess}>
+        <div className={s.modalSuccessContainer}>
           <MoonLoader color="#ffd016"/>
           <h1>Processing Your Withdrawal</h1>
         </div>
       </div>
       }
+
       {(modalSuccess && !isPending) && 
-      <div className={styles.modalSuccess}>
-        <div className={styles.modalSuccessContainer}>
+      <div className={s.modalSuccess}>
+        <div className={s.modalSuccessContainer}>
           <MdOutlinePendingActions size="4rem" color="#ffd016"/>
           <h1>Withdrawal Is Pending</h1>
           <p>Contact Us For More Info!</p>
-          <button className={styles.back} onClick={backToDashboard}>Back To Dashboard</button>
+          <button className={s.back} onClick={backToDashboard}>Back To Dashboard</button>
         </div>
       </div>
       }
+
       {showModal &&
-      <div className={styles.modal}>
-        <div className={styles.modalcontent}>
+      <div className={s.modal}>
+        <div className={s.modalcontent}>
           <form onSubmit={handleSubmit}>
-            <h1>Enter Amount & Address</h1>
-            <TextField 
-              id="Amount" 
-              label="Amount" 
-              variant="outlined" 
-              fullWidth
-              type="number"
-              onChange={(e) => setAmount(e.target.value)}
-            />
-            <TextField 
-              id="Address" 
-              label="Wallet Address" 
-              variant="outlined" 
-              fullWidth
-              type="text"
-              onChange={(e) => setAddress(e.target.value)}
-            />
-            <div className={styles.btns}>
-              <Button 
-              variant="contained"
-              type="submit"
-              className={styles.submit}
-              >Withdraw</Button>
-              <p className={styles.cancel} onClick={() => setShowModal(false)}>Cancel</p>
+            <h1>Enter Withdrawal Details</h1>
+            
+            <div className={s.formGroup}>
+            <div className={s.full}>
+              <label>Amount</label>
+              <input 
+                value={amount}  
+                className='formInput' type='number' 
+                placeholder='Enter Amount' 
+                onChange={(e) => setAmount(e.target.value)}/>
             </div>
-            {modalError && <p className={styles.error}>{modalError}</p>}
+
+              <div>
+                <label>Select Coin</label>
+                <select value={coinName} onChange={(e) => setCoinName(e.target.value)} className='formInput'>
+                  <option value='BITCOIN'>BITCOIN</option>
+                  <option value='USDT'>USDT</option>
+                </select>
+              </div>
+
+              <div>
+                <label>Select Coin Network</label>
+                <select value={coinNetwork} onChange={(e) => setCoinNetwork(e.target.value)} className='formInput'>
+                  <option value='BITCOIN'>BITCOIN</option>
+                  <option value='ERC20'>ERC20</option>
+                  <option value='TRC20'>TRC20</option>
+                </select>
+              </div>
+
+              <div className={s.full}>
+                <label>Wallet Address</label>
+                <input 
+                  value={address}  
+                  className='formInput' type='text' 
+                  placeholder='Enter Address' 
+                  onChange={(e) => setAddress(e.target.value)}/>
+              </div>
+            </div>
+
+            <div className={s.btns}>
+              <button  type="submit" className={s.submit} >{isPending? "Loading...": "withdraw"}</button>
+              <p className={s.cancel} onClick={() => setShowModal(false)}>Cancel</p>
+            </div>
+            {modalError && <p className={s.error}>{modalError}</p>}
           </form>
         </div>
       </div>
     }
 
 
-    <div className={styles.container}>
-      <div className={styles.hello} style={admin && {paddingLeft: "80px"}}>
+    <div className={s.container}>
+      <div className={s.hello} style={admin && {paddingLeft: "80px"}}>
         <p>Hello! </p>
         <p>{user.displayName}</p>
       </div>
-      <div className={styles.logo}>
-        <div className={styles.image}>
+      <div className={s.logo}>
+        <div className={s.image}>
           <img src={user.photoURL ? user.photoURL : `https://robohash.org/${user.uid}`} alt="Avatar!" />
         </div>
-        <MdKeyboardArrowDown size="1.8em" style={{cursor: 'pointer'}} onClick={handleClick}/>
+        <MdKeyboardArrowDown size="1.8em" style={{cursor: 'pointer'}} onClick={() => setMenu(!menu)}/>
         {menu && 
-          <div className={styles.menu} onClick={handleClick}>
+          <div className={s.menu} onClick={() => setMenu(!menu)}>
             {(user?.email !== "worldofhydras@gmail.com") && 
             <>
               <Link to="/home">Home</Link>
@@ -238,7 +265,7 @@ export default function DashboardNav({admin}) {
               <Link to="#" onClick={handleWithdraw}>Withdraw</Link>
             </>
             }
-            {(user?.email === "worldofhydras@gmail.com") && <Link to="#" onClick={openTransaction}>Transactions</Link>}
+            {(user?.email === "worldofhydras@gmail.com") && <Link to="#" onClick={() => setShowTransactions(true)}>Transactions</Link>}
             <Button variant="outlined" color="error" size="small" style={{fontSize: "0.7rem"}} onClick={logout}> Logout <HiOutlineLogout size="1.3em"
             style={{marginLeft: "1rem"}}
             /></Button>
