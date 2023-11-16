@@ -27,7 +27,7 @@ export default function DashboardNav({admin}) {
   const { document: Doc2 } = useCollection('transactions', true, false);
   const [modalError, setModalError] = useState(null);
   const [modalSuccess, setModalSuccess] = useState(false);
-  const [isPending, setIsPending] = useState(true);
+  const [isPending, setIsPending] = useState(false);
   const ref = doc(db, "profile", user.email);
   
 
