@@ -74,15 +74,12 @@ export default function Nav({black}) {
       <div className={styles.hamburger} onClick={handleClick}>
           <span 
           className={showMenu ? styles.activeBar : styles.bar}
-          style={navbg?{background: "black"}: {background: ""}}
           ></span>
           <span 
           className={showMenu ? styles.activeBar : styles.bar}
-          style={navbg?{background: "black"}: {background: ""}}
           ></span>
           <span 
           className={showMenu ? styles.activeBar : styles.bar}
-          style={navbg?{background: "black"}: {background: ""}}
           ></span>
       </div>
       </nav>
