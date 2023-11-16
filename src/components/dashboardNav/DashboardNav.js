@@ -251,7 +251,7 @@ export default function DashboardNav({admin}) {
         <p>{user.displayName}</p>
       </div>
       <div className={s.logo}>
-        <div className={s.image}>
+        <div className={s.image} style={{cursor: 'pointer'}} onClick={() => setMenu(!menu)}>
           <img src={user.photoURL ? user.photoURL : `https://robohash.org/${user.uid}`} alt="Avatar!" />
         </div>
         <MdKeyboardArrowDown size="1.8em" style={{cursor: 'pointer'}} onClick={() => setMenu(!menu)}/>
