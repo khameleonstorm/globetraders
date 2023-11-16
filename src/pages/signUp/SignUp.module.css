@@ -112,13 +112,9 @@
 
 
 @media screen and (max-width: 600px){
-  .container{
-    background: none;
-    padding: 80px 0 0 0;
-  }
-  .form{
-    width: 100%;
-    background: none;
-    box-shadow: none;
-  }
+.form{
+  width: 100%;
+  background: none;
+  box-shadow: none;
+}
 }

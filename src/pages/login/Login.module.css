@@ -68,12 +68,9 @@
 }
 
 @media screen and (max-width: 600px){
-  .container{
-    background: none;
-  }
-  .form{
-    width: 100%;
-    background: none;
-    box-shadow: none;
-  }
+.form{
+  width: 100%;
+  background: none;
+  box-shadow: none;
+}
 }
