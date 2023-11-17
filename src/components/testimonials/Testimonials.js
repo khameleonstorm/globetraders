@@ -47,7 +47,7 @@ export default function Testimonials({ data }) {
           {data.map((doc, i) => 
           <SwiperSlide className={s.slide} key={i}>
             <div className={s.avatar}>
-              <img src={`https://robohash.org/${doc.name}`} alt='avatar'/>
+              <img src={`https://robohash.org/${doc.id}`} alt='avatar'/>
               <p className={s.name}>{doc.name}</p>
             </div>
 

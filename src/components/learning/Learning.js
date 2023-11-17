@@ -6,7 +6,7 @@ export default function Learning() {
     <div className={styles.container}>
       <div className={styles.text}>
         <h1>LEARNING LIKE A PRO</h1>
-        <p>Become a Pro with these learning valuable skills. Start your course today. Join millions of learners already learning On TRUSTSOLID.</p>
+        <p>Become a Pro with these learning valuable skills. Start your course today. Join millions of learners already learning On GLOBETRADERS.</p>
       </div>
       <Link to='#' className={styles.button}>Start Learning</Link>
     </div>

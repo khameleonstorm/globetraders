@@ -52,9 +52,9 @@ export default function AppleChart() {
       </script>
       </Helmet>
       <div 
-        className={`${styles.chart} tradingview-widget-container`}
-        id="tvchart1"
-        >
+      className={`${styles.chart} tradingview-widget-container`}
+      id="tvchart1"
+      >
       </div>
     </div>
   )

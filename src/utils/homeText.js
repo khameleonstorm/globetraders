@@ -23,6 +23,163 @@ import sec3 from '../assets/cta-bg.png';
 import sec5 from '../assets/sec5.gif';
 
 
+
+
+export const withdrawals = [
+  {
+    name: "Gisela Heidi",
+    country: "Germany",
+    time: "2 Hours ago"
+  },
+  {
+    name: "Karl Axel",
+    country: "Germany",
+    time: "1 Hour ago"
+  },
+  {
+    name: "Carmen Alberto",
+    country: "Spain",
+    time: "4 Hours ago"
+  },
+  {
+    name: "Duarte João",
+    country: "Portugal",
+    time: "1 Hour ago"
+  },
+  {
+    name: "Charlotte Jonas",
+    country: "Germany",
+    time: "3 Hours ago"
+  },
+  {
+    name: "Luis Guilherme",
+    country: "Portugal",
+    time: "9 Hours ago"
+  },
+  {
+    name: "Huan Bao",
+    country: "China",
+    time: "8 Hours ago"
+  },
+  {
+    name: "Margarida Emilio",
+    country: "Portugal",
+    time: "1 Hour ago"
+  },
+  {
+    name: "Fernanda Alexandre",
+    country: "Portugal",
+    time: "4 Hours ago"
+  },
+  {
+    name: "Cai Chung",
+    country: "China",
+    time: "2 Hours ago"
+  },
+  {
+    name: "Diego Javier",
+    country: "Portugal",
+    time: "5 Hours ago"
+  },
+  {
+    name: "Wilson Miller",
+    country: "United States",
+    time: "10 Hours ago"
+  },
+  {
+    name: "Zhào Wáng",
+    country: "China",
+    time: "2 Hours ago"
+  },
+  {
+    name: "Duke Stone",
+    country: "United States",
+    time: "2 Hours ago"
+  },
+  {
+    name: "Harry Bill",
+    country: "Canada",
+    time: "2 Hours ago"
+  },
+  {
+    name: "Kang Chao xing",
+    country: "China",
+    time: "2 Hours ago"
+  },
+];
+
+
+
+
+export const testimonies = [
+  {
+    name: "Alex W",
+    message: "GlobeTraderz has transformed my approach to investing. The platform is intuitive, and the investment process is straightforward. The team behind GlobeTraderz is responsive and provides excellent support. I trust their investment strategies and highly recommend them!",
+  },
+  {
+    name: "Sophie L",
+    message: "I've been using GlobeTraderz for my investments, and it's been a fantastic experience. The platform offers a diverse range of investment options, and the pricing is competitive. The convenience of managing my portfolio online is unparalleled. A reliable choice for anyone serious about investing.",
+  },
+  {
+    name: "Ryan M",
+    message: "GlobeTraderz has made investing simple and accessible. The platform is user-friendly, and I appreciate the variety of investment tools available. The customer support team is knowledgeable and responsive. GlobeTraderz is my preferred platform for all my investment needs.",
+  },
+  {
+    name: "Olivia G",
+    message: "I cannot speak highly enough of GlobeTraderz. Their commitment to client satisfaction is evident in every aspect of their service. The platform is secure, the investment options are diverse, and the returns are impressive. Choosing GlobeTraderz has been a smart move for my financial goals!",
+  },
+  {
+    name: "Nathan K",
+    message: "GlobeTraderz is a game-changer in the investment world. The platform's interface is modern and easy to navigate. The team provides valuable insights, and the investment performance speaks for itself. I trust GlobeTraderz with my portfolio, and you should too!",
+  },
+  {
+    name: "Eva R",
+    message: "Investing with GlobeTraderz has been a seamless experience. The platform offers transparency, and the investment tools are powerful yet user-friendly. The team is responsive and dedicated to helping clients succeed. I highly recommend GlobeTraderz for anyone serious about building wealth through investments.",
+  },
+  {
+    name: "Chris H",
+    message: "I've tried several investment platforms, and GlobeTraderz stands out for its reliability and performance. The platform's features are tailored to both beginners and experienced investors. The team is committed to excellence, making GlobeTraderz my top choice for managing my investments.",
+  },
+  {
+    name: "Lily P",
+    message: "GlobeTraderz has exceeded my expectations. The platform is user-centric, offering a variety of investment options suitable for different risk profiles. The team is proactive in keeping clients informed about market trends. Trustworthy, efficient, and highly recommended!",
+  },
+  {
+    name: "Michael S",
+    message: "I've been with GlobeTraderz for a while now, and the results have been impressive. The platform is backed by solid research, and the investment strategies are well-executed. The user interface is intuitive, making it easy to manage my investments. GlobeTraderz is a reliable partner for financial growth.",
+  },
+  {
+    name: "Hannah B",
+    message: "Choosing GlobeTraderz was a wise decision for my investment journey. The platform offers a range of features that empower investors. The customer service is exceptional, and the team is dedicated to helping clients achieve their financial goals. I trust GlobeTraderz with my investments.",
+  },
+  {
+    name: "Daniel M",
+    message: "GlobeTraderz has provided me with a strategic approach to investing. The platform's user-friendly design and diverse investment options make it a standout choice. The team's expertise is evident in the impressive returns I've experienced. GlobeTraderz is my go-to platform for wealth-building.",
+  },
+  {
+    name: "Emma R",
+    message: "As a new investor, GlobeTraderz has been instrumental in helping me navigate the complexities of the financial market. The educational resources provided by the platform are invaluable, and the support from the team has been exceptional. GlobeTraderz is the perfect platform for beginners and seasoned investors alike.",
+  },
+  {
+    name: "Max H",
+    message: "I appreciate the transparency and reliability of GlobeTraderz. The platform's real-time analytics and market insights have empowered me to make informed investment decisions. The team's dedication to client success sets GlobeTraderz apart. I'm confident in the platform's ability to deliver consistent results.",
+  },
+  {
+    name: "Isabel C",
+    message: "GlobeTraderz has simplified my investment journey. The platform's user interface is intuitive, and the wealth of information available makes it easy to stay informed. The team's commitment to customer satisfaction is evident in every interaction. I trust GlobeTraderz to help me achieve my financial goals.",
+  },
+  {
+    name: "Benjamin L",
+    message: "I've been impressed with GlobeTraderz's commitment to innovation. The platform continually introduces new features and investment opportunities, keeping my portfolio dynamic. The team's responsiveness and expertise make GlobeTraderz a reliable partner for long-term success. I'm excited to continue growing my investments with them.",
+  },
+  {
+    name: "Sophia A",
+    message: "GlobeTraderz has proven to be a trustworthy platform for wealth creation. The comprehensive range of investment options and the team's dedication to customer satisfaction make it a standout choice. I've seen consistent returns and appreciate the platform's user-friendly approach. GlobeTraderz is my preferred investment platform.",
+  },
+];
+
+
+
 export const heroText = {
   title: 'Invest in Stocks, Crypto & More',
   subtitle: 'Join our stock & crypto trading social network with over 1 million users. Cryptocurrency trading is the act of speculating on cryptocurrency price movements via a CFD trading account.',
@@ -115,159 +272,6 @@ export const homeSec3Text = {
   ],
 };
 
-export const testimonies = [
-  {
-    name: "Alex W",
-    message: "GlobeTraderz has transformed my approach to investing. The platform is intuitive, and the investment process is straightforward. The team behind GlobeTraderz is responsive and provides excellent support. I trust their investment strategies and highly recommend them!",
-  },
-  {
-    name: "Sophie L",
-    message: "I've been using GlobeTraderz for my investments, and it's been a fantastic experience. The platform offers a diverse range of investment options, and the pricing is competitive. The convenience of managing my portfolio online is unparalleled. A reliable choice for anyone serious about investing.",
-  },
-  {
-    name: "Ryan M",
-    message: "GlobeTraderz has made investing simple and accessible. The platform is user-friendly, and I appreciate the variety of investment tools available. The customer support team is knowledgeable and responsive. GlobeTraderz is my preferred platform for all my investment needs.",
-  },
-  {
-    name: "Olivia G",
-    message: "I cannot speak highly enough of GlobeTraderz. Their commitment to client satisfaction is evident in every aspect of their service. The platform is secure, the investment options are diverse, and the returns are impressive. Choosing GlobeTraderz has been a smart move for my financial goals!",
-  },
-  {
-    name: "Nathan K",
-    message: "GlobeTraderz is a game-changer in the investment world. The platform's interface is modern and easy to navigate. The team provides valuable insights, and the investment performance speaks for itself. I trust GlobeTraderz with my portfolio, and you should too!",
-  },
-  {
-    name: "Eva R",
-    message: "Investing with GlobeTraderz has been a seamless experience. The platform offers transparency, and the investment tools are powerful yet user-friendly. The team is responsive and dedicated to helping clients succeed. I highly recommend GlobeTraderz for anyone serious about building wealth through investments.",
-  },
-  {
-    name: "Chris H",
-    message: "I've tried several investment platforms, and GlobeTraderz stands out for its reliability and performance. The platform's features are tailored to both beginners and experienced investors. The team is committed to excellence, making GlobeTraderz my top choice for managing my investments.",
-  },
-  {
-    name: "Lily P",
-    message: "GlobeTraderz has exceeded my expectations. The platform is user-centric, offering a variety of investment options suitable for different risk profiles. The team is proactive in keeping clients informed about market trends. Trustworthy, efficient, and highly recommended!",
-  },
-  {
-    name: "Michael S",
-    message: "I've been with GlobeTraderz for a while now, and the results have been impressive. The platform is backed by solid research, and the investment strategies are well-executed. The user interface is intuitive, making it easy to manage my investments. GlobeTraderz is a reliable partner for financial growth.",
-  },
-  {
-    name: "Hannah B",
-    message: "Choosing GlobeTraderz was a wise decision for my investment journey. The platform offers a range of features that empower investors. The customer service is exceptional, and the team is dedicated to helping clients achieve their financial goals. I trust GlobeTraderz with my investments.",
-  },
-  {
-    name: "Daniel M",
-    message: "GlobeTraderz has provided me with a strategic approach to investing. The platform's user-friendly design and diverse investment options make it a standout choice. The team's expertise is evident in the impressive returns I've experienced. GlobeTraderz is my go-to platform for wealth-building.",
-  },
-  {
-    name: "Emma R",
-    message: "As a new investor, GlobeTraderz has been instrumental in helping me navigate the complexities of the financial market. The educational resources provided by the platform are invaluable, and the support from the team has been exceptional. GlobeTraderz is the perfect platform for beginners and seasoned investors alike.",
-  },
-  {
-    name: "Max H",
-    message: "I appreciate the transparency and reliability of GlobeTraderz. The platform's real-time analytics and market insights have empowered me to make informed investment decisions. The team's dedication to client success sets GlobeTraderz apart. I'm confident in the platform's ability to deliver consistent results.",
-  },
-  {
-    name: "Isabel C",
-    message: "GlobeTraderz has simplified my investment journey. The platform's user interface is intuitive, and the wealth of information available makes it easy to stay informed. The team's commitment to customer satisfaction is evident in every interaction. I trust GlobeTraderz to help me achieve my financial goals.",
-  },
-  {
-    name: "Benjamin L",
-    message: "I've been impressed with GlobeTraderz's commitment to innovation. The platform continually introduces new features and investment opportunities, keeping my portfolio dynamic. The team's responsiveness and expertise make GlobeTraderz a reliable partner for long-term success. I'm excited to continue growing my investments with them.",
-  },
-  {
-    name: "Sophia A",
-    message: "GlobeTraderz has proven to be a trustworthy platform for wealth creation. The comprehensive range of investment options and the team's dedication to customer satisfaction make it a standout choice. I've seen consistent returns and appreciate the platform's user-friendly approach. GlobeTraderz is my preferred investment platform.",
-  },
-];
-
-
-
-
-export const withdrawals = [
-  {
-    name: "Gisela Heidi",
-    country: "Germany",
-    time: "2 Hours ago"
-  },
-  {
-    name: "Karl Axel",
-    country: "Germany",
-    time: "1 Hour ago"
-  },
-  {
-    name: "Carmen Alberto",
-    country: "Spain",
-    time: "4 Hours ago"
-  },
-  {
-    name: "Duarte João",
-    country: "Portugal",
-    time: "1 Hour ago"
-  },
-  {
-    name: "Charlotte Jonas",
-    country: "Germany",
-    time: "3 Hours ago"
-  },
-  {
-    name: "Luis Guilherme",
-    country: "Portugal",
-    time: "9 Hours ago"
-  },
-  {
-    name: "Huan Bao",
-    country: "China",
-    time: "8 Hours ago"
-  },
-  {
-    name: "Margarida Emilio",
-    country: "Portugal",
-    time: "1 Hour ago"
-  },
-  {
-    name: "Fernanda Alexandre",
-    country: "Portugal",
-    time: "4 Hours ago"
-  },
-  {
-    name: "Cai Chung",
-    country: "China",
-    time: "2 Hours ago"
-  },
-  {
-    name: "Diego Javier",
-    country: "Portugal",
-    time: "5 Hours ago"
-  },
-  {
-    name: "Wilson Miller",
-    country: "United States",
-    time: "10 Hours ago"
-  },
-  {
-    name: "Zhào Wáng",
-    country: "China",
-    time: "2 Hours ago"
-  },
-  {
-    name: "Duke Stone",
-    country: "United States",
-    time: "2 Hours ago"
-  },
-  {
-    name: "Harry Bill",
-    country: "Canada",
-    time: "2 Hours ago"
-  },
-  {
-    name: "Kang Chao xing",
-    country: "China",
-    time: "2 Hours ago"
-  },
-];
-
 
 
 export const homeSec4Text = {
@@ -279,21 +283,27 @@ export const homeSec4Text = {
     amount: "$100 → $105",
     title: "Trial",
     desc: "Suitable for all",
+    falsepoints: ["Deposit fee"],
     truepoints: ["Pro Personalized Portfolio", "Duration: 12hrs", "Return on investment: 5.0%"],
+    background: "#00A3FF", 
   },
   {
     id: 2,
     title: "Promotion",
     amount: "$1500 → $1650",
     desc: "Increased yield percentage",
+    falsepoints: ["Management fee", "Deposit fee"],
     truepoints: ["Personalized Portfolio", "Duration: 24hrs", "Return on investment: 10.0%", "Trading Signal"],
+    background: "#FFE600",   
   },
   {
     id: 3,
     amount: "$3000 → $3900",
     title: "Expert",
     desc: "Exclusive benifits and privileges",
+    falsepoints: ["Management fee", "Deposit fee"],
     truepoints: ["Personalized Portfolio", "Trading Signal", "Defi insights", "Duration: 48hrs", "Return on investment: 30.0%"],
+    background: "#00847C",     
   }
 ]};
 

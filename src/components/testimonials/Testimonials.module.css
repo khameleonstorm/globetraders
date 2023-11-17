@@ -23,14 +23,13 @@
   border-radius: 10px;
   overflow: hidden;
   position: relative !important;
-  border: 1px solid #3a3a3a;
+  border: 1.5px solid #031C6E;
   padding: 30px 20px;
 }
 
 .slide p{
-  font-size: .85rem;
-  font-weight: 300;
-  line-height: 1.6;
+  font-size: .8rem;
+  font-weight: 400;
 }
 
 .avatar{
@@ -42,8 +41,8 @@
 
 .name{
   font-size: 1rem !important;
-  font-weight: 400 !important;
-  color: #737373;
+  font-weight: 500 !important;
+  color: #031C6E;
 }
 
 .avatar img{

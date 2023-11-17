@@ -267,6 +267,29 @@
   font-size: .7rem;
 }
 
+.formGroup{
+  width: 100%;
+  display: flex;
+}
+
+.formGroup div{
+  width: 47%;
+}
+
+.formGroup input, .formGroup select{
+  width: 100%;
+  padding: 18px 10px !important;
+  border: .5px solid rgb(172, 172, 172);
+  background: none;
+  border-radius: 10px;
+}
+
+.full{
+  width: 100%;
+}
+
+
+
 @media screen and (max-width: 600px){
 .modalcontent{
   width: 95%;

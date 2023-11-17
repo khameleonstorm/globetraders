@@ -10,7 +10,7 @@ export default function Clients({home}) {
     chartDiv.appendChild(script)
 
     script.src = "https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js"
-    script.async = false
+    script.async = true
     const loadscript = {
       "symbols": [
         {
@@ -43,9 +43,9 @@ export default function Clients({home}) {
         }
       ],
       "showSymbolLogo": true,
-      "colorTheme": "dark",
+      "colorTheme": "light",
       "isTransparent": true,
-      "displayMode": "compact",
+      "displayMode": "regular",
       "locale": "en"
     }
 
@@ -66,7 +66,7 @@ export default function Clients({home}) {
           <img key={index} src={logo.image} alt="client" />
         ))}
       </div>}
-      <div className={styles.tvcontainer} id="homeTickerTape">
+      <div className={`${styles.tvcontainer} tradingview-widget-container__widget`} id="homeTickerTape">
       </div>
     </div>
   )

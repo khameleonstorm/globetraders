@@ -1,5 +1,8 @@
 import styles from './InvestmentCard.module.css';
-import { BsCheck } from "react-icons/bs";
+import { FaRegTimesCircle } from "react-icons/fa";
+import { FaRegCheckCircle } from "react-icons/fa";
+import { HiArrowSmRight } from "react-icons/hi";
+import { Link } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import { Button, TextField } from '@mui/material';
 import { useState } from 'react';
@@ -262,9 +265,10 @@ export default function InvestmentCard({ title, subtitle, plans, showHeader }) {
               type="number"
               onChange={(e) => setAmount(e.target.value)}
             />
+
             <div className={styles.btns}>
               <Button 
-              variant="contained"  
+              variant="contained"
               type="submit"
               className={styles.submit}
               >Invest</Button>
@@ -276,22 +280,35 @@ export default function InvestmentCard({ title, subtitle, plans, showHeader }) {
       </div>
     }
     <div className={styles.container} id="pricing">
-      {plans.map((plan)  =>
-          <div className={styles.card} key={plan.id}>
-            <div className={styles.content3}>
-            </div>
-            <div className={styles.content1}>
-              <h2>{plan.title}</h2>
-              <h3>{plan.amount}</h3>
-              <p>{plan.desc}</p>
-              <span></span>
-            </div>
-            <button onClick={() => handleInvest(plan.desc, plan.title)}>Invest</button>
-            <div className={styles.content2}>
-              {plan.truepoints.map((truepoint) => <div key={truepoint} className={styles.fact1}><span><BsCheck /><p>{truepoint}</p></span></div>) }
-            </div>
+      {plans.map(plan  =>
+        <div className={styles.card} key={plan.id}>
+          <div className={styles.content3} style={{ background: plan.background}}>
           </div>
-        )}
+          <div className={styles.content1}>
+            <h2>{plan.title}</h2>
+            <h3>{plan.amount}</h3>
+            <p>{plan.desc}</p>
+            <span></span>
+          </div>
+          <div className={styles.content2}>
+          {plan.falsepoints.map(falsepoint => <div key={falsepoint} className={styles.fact1}><span><FaRegTimesCircle /><p>{falsepoint}</p></span></div>) }
+          {plan.truepoints.map(truepoint => <div key={truepoint} className={styles.fact2}><span><FaRegCheckCircle /><p>{truepoint}</p></span></div>) }
+          </div>
+          <div className={styles.buttons}>
+            {!user &&
+            <>
+              <Link to="/login" className={styles.button1}>Get Started</Link>
+              <Link to="/plans" className={styles.button2}>
+                Learn More <HiArrowSmRight color={`${plan.background}`}/>
+              </Link>
+            </>
+            }
+            {user &&
+              <Link to="#" className={styles.button1} onClick={() => handleInvest(plan.title)}>Invest</Link>
+            }
+          </div>
+        </div>
+      )}
     </div>
     </>
   )

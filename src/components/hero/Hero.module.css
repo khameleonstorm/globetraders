@@ -4,6 +4,7 @@
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
+  background: #16152c;
   padding: 0 50px;
 }
 
@@ -40,7 +41,7 @@
 .button1{
   padding: 10px 20px;
   border-radius: 35px;
-  background: #28b97c;
+  background: #1649ff;
   font-size: .9rem;
   font-weight: 500;
   color: white;
@@ -57,7 +58,7 @@
 }
 
 .button2:hover{
-  color: #009255;
+  color: #1649ff;
   cursor: pointer;
 }
 

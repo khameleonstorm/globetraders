@@ -22,7 +22,6 @@
 }
 
 .subtitle{
-  text-align: center;
   font-size: 1rem;
   padding-bottom: 20px;
   font-weight: 400;
@@ -32,17 +31,14 @@
 .acc{
   padding: 20px 0;
   border-radius: 20px;
-  background-color: rgba(113, 113, 113, 0.1) !important;
-  backdrop-filter: blur(20px);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.01) !important;
-  transition: all 0.3s ease-in-out !important;
+  background: rgba(230, 230, 230, 0.2);
+  box-shadow: 0 0 10px rgba(80, 80, 80, 0.1) !important;
   border: none !important;
   margin-bottom: 10px;
 }
 
 .acc h3{
-  font-size: 1rem;
-  color: white;
+  font-size: .9rem;
 }
 
 .acc h3 span{
@@ -51,13 +47,8 @@
 }
 
 .acc p{
-  font-size: 1rem;
+  font-size: 0.8rem;
   font-weight: 300;
-  color: white;
-}
-
-.acc svg{
-  color: white;
 }
 
 .right, .right2{
@@ -69,12 +60,12 @@
 
 .right img{
   width: 85%;
-  border-radius: 10px;
+  border-radius: 20px;
 }
 
 .right2 img{
   width: 100%;
-  border-radius: 10px;
+  border-radius: 20px;
 }
 
 @media screen and (max-width: 1100px){
