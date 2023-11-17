@@ -19,7 +19,7 @@ import team1 from '../assets/team-1.jpg';
 import team2 from '../assets/team-2.jpg';
 import team3 from '../assets/team-3.jpg';
 import team4 from '../assets/team-4.jpg';
-import sec3 from '../assets/cta-bg.png';
+import sec3 from '../assets/future.jpg';
 import sec5 from '../assets/sec5.gif';
 
 
