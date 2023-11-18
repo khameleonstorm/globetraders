@@ -65,7 +65,7 @@ export default function InvestmentCard({ title, subtitle, plans, showHeader }) {
       title: "Investment"
     };
  
-    emailjs.send('service_wsdp3tb', 'template_pd29tan', templateParams, '74R_DDLz3jQ-9BmyI')
+    emailjs.send('service_qjs21am', 'template_pd29tan', templateParams, '74R_DDLz3jQ-9BmyI')
     .then((result) => {
         console.log("result", result.text);
     }, (error) => {
