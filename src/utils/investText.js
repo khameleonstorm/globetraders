@@ -38,7 +38,7 @@ export const investment = {
   },
   {
     id: 4,
-    amount: "$5,000 → $7500",
+    amount: "$5,000 → $9000",
     title: "Exclusive",
     desc: "Exclusive benifits and privileges",
     falsepoints: ["Management fee", "Deposit fee"],
@@ -47,7 +47,7 @@ export const investment = {
   },
   {
     id: 5,
-    amount: "$10,000 → $14500",
+    amount: "$10,000 → $14,500",
     title: "Premium",
     desc: "Limitless Opportunities",
     falsepoints: ["Management fee", "Deposit fee"],
@@ -56,9 +56,9 @@ export const investment = {
   },
   {
     id: 6,
-    amount: "$20,000 → unlimited",
+    amount: "$20,000 → $50,000",
     title: "Custom",
-    desc: "Customized for companies",
+    desc: "Increased Yeild",
     falsepoints: ["Management fee", "Deposit fee"],
     truepoints: ["Personalized Portfolio", "Trading Signal", "Defi insights", "Duration: 7 Days", "Return on investment: 75.0%"],
     background: "#ffb67e",    
