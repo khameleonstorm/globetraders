@@ -78,7 +78,7 @@ export default function InvestmentCard({ title, subtitle, plans, showHeader }) {
     const ref = doc(db, "profile", user.email);
     if(filteredDoc){
       if(amount && plan){
-        // parse amount to number
+        // parse amount to  number
         const amountNumber = Number(amount);
         const { bal, fullName } = filteredDoc[0];
 
